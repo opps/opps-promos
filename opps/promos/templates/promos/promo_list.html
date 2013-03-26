@@ -1,0 +1,14 @@
+{% load thumbor_tags %}
+Opps Promo List
+
+<ul>
+  {% for promo in promos %}
+  <li>
+    {% if promo.main_image %}
+    <img src="{% thumbor_url promo.main_image.image.url width=10 %}" />
+    {% endif %}
+    <a href="{% url 'promos:open_promo' promo.slug %}" alt="{{ promo.title }}">{{ promo.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+

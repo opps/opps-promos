@@ -1,0 +1,20 @@
+{% load thumbor_tags %}
+ <a href="{% url 'promos:list_promo'%}">< All promos </a><br/>
+Opps Promo Result
+
+<h1>{{ promo.title }}</h1>
+<div>{{ promo.headline|safe }}</div>
+{% if promo.main_image %}
+<img src="{% thumbor_url promo.main_image.image.url width=100 %}" />
+{% endif %}
+
+This promo is closed
+<br>
+<ul>
+{% for answer in promo.anwers %}
+    <li>
+        {{answer.answer}}
+    </li>
+{% endfor %}
+</ul>
+

@@ -1,0 +1,1 @@
+-e git+https://github.com/oppsproject/opps.git#egg=opps

@@ -1,0 +1,24 @@
+{% load thumbor_tags %}
+
+ <a href="{% url 'promos:list_promos'%}">< All promos </a><br/>
+ Opps Promo Detail
+
+<h1>{{ promo.title }}</h1>
+<div>{{ promo.headline|safe }}</div>
+
+{% if promo.main_image %}
+<img src="{% thumbor_url promo.main_image.image.url width=100 %}" />
+{% endif %}
+
+{% if error %}
+<div class="alert alert-error">
+  {{ error }}
+</div>
+{% endif %}
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ promo.form.as_p }}
+    <input type="submit" value="Vote">
+</form>
