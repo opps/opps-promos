@@ -14,11 +14,11 @@ class PromoAdminForm(forms.ModelForm):
     class Meta:
         model = Promo
         widgets = {
-            "headline": RedactorEditor(verbose_name=u'Text'),
-            "description": RedactorEditor(verbose_name=u'Text'),
-            "confirmation_email_html": RedactorEditor(verbose_name=u'Text'),
-            "rules": RedactorEditor(verbose_name=u'Text'),
-            "result": RedactorEditor(verbose_name=u'Text')
+            "headline": RedactorEditor(),
+            "description": RedactorEditor(),
+            "confirmation_email_html": RedactorEditor(),
+            "rules": RedactorEditor(),
+            "result": RedactorEditor()
         }
 
 
