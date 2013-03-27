@@ -44,6 +44,9 @@ class Promo(Publishable):
     has_upload = models.BooleanField(_(u"Has file upload?"), default=False)
     has_urlfield = models.BooleanField(_(u"Has url field?"), default=False)
 
+    display_winners = models.BooleanField(_(u"Display winners?"), default=False)
+
+
     send_confirmation_email = models.BooleanField(_(u"Send confirmation email?"),
             default=False)
 
@@ -51,7 +54,7 @@ class Promo(Publishable):
             blank=True)
     confirmation_email_html = models.TextField(_(u'Confirmation email (HTML)'),
             blank=True)
-    confirmation_email_address = models.EmailField('Email', max_length=255,
+    confirmation_email_address = models.EmailField(_(u'Email'), max_length=255,
             null=True, blank=True)
 
     @property
