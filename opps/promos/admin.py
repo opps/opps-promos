@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
 
-from redactor.widgets import RedactorEditor
+from redactor.widgets import AdminRedactorEditor
 
 from .models import Promo, Answer, PromoPost
 
@@ -14,11 +14,11 @@ class PromoAdminForm(forms.ModelForm):
     class Meta:
         model = Promo
         widgets = {
-            "headline": RedactorEditor(),
-            "description": RedactorEditor(),
-            "confirmation_email_html": RedactorEditor(),
-            "rules": RedactorEditor(),
-            "result": RedactorEditor()
+            "headline": AdminRedactorEditor(),
+            "description": AdminRedactorEditor(),
+            "confirmation_email_html": AdminRedactorEditor(),
+            "rules": AdminRedactorEditor(),
+            "result": AdminRedactorEditor()
         }
 
 
