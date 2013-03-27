@@ -45,7 +45,21 @@ class PromoAdmin(admin.ModelAdmin):
         (_(u'Identification'), {
             'fields': ('title', 'slug')}),
         (_(u'Content'), {
-            'fields': ('headline', 'description','rules', 'main_image', 'tags')}),
+            'classes': ('extrapretty'),
+            'fields': ('main_image', 'tags')}),
+
+        (_(u'Headline'), {
+            'classes': ('extrapretty'),
+            'fields': ('headline', )}),
+
+        (_(u'Description'), {
+            'classes': ('extrapretty'),
+            'fields': ('description',)}),
+
+        (_(u'Rules'), {
+            'classes': ('extrapretty'),
+            'fields': ('rules',)}),
+
         (_(u'Relationships'), {
             'fields': ('channel',)}),
         (_(u'Publication'), {
