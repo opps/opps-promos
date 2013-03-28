@@ -44,6 +44,7 @@ class PromoAdmin(admin.ModelAdmin):
     fieldsets = (
         (_(u'Identification'), {
             'fields': ('title', 'slug')}),
+
         (_(u'Content'), {
             'classes': ('extrapretty'),
             'fields': ('main_image', 'tags')}),
@@ -62,13 +63,16 @@ class PromoAdmin(admin.ModelAdmin):
 
         (_(u'Relationships'), {
             'fields': ('channel',)}),
+
         (_(u'Publication'), {
             'classes': ('extrapretty'),
             'fields': ('published', 'date_available', 'date_end',
                 'position', 'has_upload','has_urlfield', 'template_path')}),
+
         (_(u'Participation'), {
             'fields': ('send_confirmation_email', 'confirmation_email_txt',
                 "confirmation_email_html", "confirmation_email_address")}),
+
         (_(u'Result'), {
             'fields': ('result', 'display_winners')}),
     )
