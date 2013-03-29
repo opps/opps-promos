@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from taggit.managers import TaggableManager
+from tagging.fields import TagField
 
 from opps.core.models import Publishable
 from opps.channels.models import Channel
@@ -35,7 +35,7 @@ class Promo(Publishable):
                                    null=True, on_delete=models.SET_NULL,
                                    related_name='promo_image')
 
-    tags = TaggableManager(blank=True)
+    tags = TagField(null=True, verbose_name=_(u"Tags"))
     date_end = models.DateTimeField(_(u"End date"), null=True, blank=True)
     position  = models.IntegerField(_(u"Position"), default=0)
     template_path  = models.CharField(_(u"Template Path"), blank=True,
