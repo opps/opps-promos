@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 from opps import promos
 
 
-install_requires = ["opps"]
+install_requires = ["opps", 'django-endless-pagination==1.1']
 
 classifiers = ["Development Status :: 4 - Beta",
                "Intended Audience :: Developers",

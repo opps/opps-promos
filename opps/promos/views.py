@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from django.conf import settings
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
@@ -11,6 +12,10 @@ from opps.channels.models import Channel
 
 from .models import Promo, Answer
 
+# IS THERE A BETTER WAY?
+settings.INSTALLED_APPS += (
+  'endless_pagination',
+)
 
 class PromoList(ListView):
 
@@ -22,6 +27,7 @@ class PromoList(ListView):
 
     @property
     def queryset(self):
+        print self.request.user
         return Promo.objects.all_published()
 
 
@@ -60,9 +66,6 @@ class PromoDetail(DetailView):
 
         if not self.object.is_opened:
             self.template_name_suffix = "_closed"
-
-        if self.kwargs.get('result'):
-            self.template_name_suffix = "_result"
 
         if hasattr(self.object, '_meta'):
             app_label = self.object._meta.app_label
@@ -127,9 +130,14 @@ class PromoDetail(DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+
         context = super(PromoDetail, self).get_context_data(**kwargs)
 
-        #already anwered send the 'answered object to template'
+        context['answers'] = self.object.answers
+        context['request'] = self.request
+        context['winners'] = self.object.winners
+
+        context['answered'] = self.object.has_answered(request.user)
 
         return self.render_to_response(context)
 

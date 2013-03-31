@@ -1,13 +1,16 @@
 {% load thumbor_tags %}
+{% load endless %}
 
  <a href="{% url 'promos:list_promos'%}">< All promos </a><br/>
  Opps Promo Detail
+
+ <hr>
 
 <h1>{{ promo.title }}</h1>
 <div>{{ promo.headline|safe }}</div>
 
 {% if promo.main_image %}
-<img src="{% thumbor_url promo.main_image.image.url width=100 %}" />
+<img src="{% thumbor_url promo.main_image.image.url width=600  %}" width=600 />
 {% endif %}
 
 {% if error %}
@@ -16,9 +19,62 @@
 </div>
 {% endif %}
 
+<h3> Join </h3>
+<div>{{ promo.description|safe }}</div>
 
-<form method="post">
-    {% csrf_token %}
-    {{ promo.form.as_p }}
-    <input type="submit" value="Vote">
-</form>
+
+{# If user is not authenticated show login form #}
+{% if not request.user.is_authenticated %}
+
+    Don't you have an account? <a href="#"> Register </a><br />
+    Or Login <br/>
+    <form method="post">
+        {% csrf_token %}
+        {{ promo.form.as_p }}
+        <input type="submit" value="login">
+    </form>
+
+    <a href="{% url "socialauth_begin" "facebook" %}">Connect with  Facebook </a><br />
+    <a href="{% url "accounts:password_reset" %}">Forgot</a> your password?
+
+{# user is authenticated, check if not answered yet #}
+{% elif not answered %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ promo.form.as_p }}
+        <input type="submit" value="Join">
+    </form>
+
+
+{% else %}
+
+ You already answered this promo
+
+{% endif %}
+
+<br />
+
+<a href="#" id="display-rules"> Rules </a>
+{# The link above should load the rules in a  modal #}
+<div id="rules-modal" style="display:none;">
+{{ promo.rules|safe }}
+</div>
+
+
+<h2> Answers </h2>
+{% paginate answers %}
+    {% for answer in answers %}
+
+      <div>
+        <p> {{ answer.answer }}</p>
+        <span> <strong>{{ answer.user }}</strong> in {{ answer.date_insert }}</span>
+      </div>
+
+    {% empty %}
+
+     No answers yet, be the first!
+
+    {% endfor %}
+
+{% show_pages %}

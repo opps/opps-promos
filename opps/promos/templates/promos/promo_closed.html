@@ -1,20 +1,41 @@
 {% load thumbor_tags %}
- <a href="{% url 'promos:list_promo'%}">< All promos </a><br/>
-Opps Promo Result
+{% load endless %}
+
+ <a href="{% url 'promos:list_promos'%}">< All promos </a><br/>
+ Opps Promo Closed
+
+ <hr>
 
 <h1>{{ promo.title }}</h1>
 <div>{{ promo.headline|safe }}</div>
+
 {% if promo.main_image %}
-<img src="{% thumbor_url promo.main_image.image.url width=100 %}" />
+<h1> Promo Finished !! </h1>
+<img src="{% thumbor_url promo.main_image.image.url width=600  %}" width=600 />
 {% endif %}
 
-This promo is closed
-<br>
-<ul>
-{% for answer in promo.anwers %}
-    <li>
-        {{answer.answer}}
-    </li>
-{% endfor %}
-</ul>
+<h3> Result </h3>
+<div>{{ promo.result|safe }}</div>
 
+
+{# Each answer can be marked as winner to be shown here #}
+{% if winners and promo.display_winners %}
+
+    <h2> Winners </h2>
+    {% paginate winners %}
+        {% for winner in winners %}
+
+          <div>
+            <p> {{ winner.answer }}</p>
+            <span> <strong>{{ winner.user }}</strong> in {{ winner.date_insert }}</span>
+          </div>
+
+        {% empty %}
+
+         No winners
+
+        {% endfor %}
+
+    {% show_pages %}
+
+{% endif %}
