@@ -69,11 +69,17 @@ class Promo(Publishable):
 
     @property
     def answers(self):
-        return self.answer_set.all()
+        return self.answer_set.filter(published=True)
 
     @property
     def winners(self):
         return self.answers.filter(is_winner=True)
+
+    def has_answered(self, user):
+        try:
+            return self.answers.filter(user=user).exists()
+        except TypeError:
+            return False
 
     def __unicode__(self):
         return self.title
@@ -92,7 +98,7 @@ class PromoPost(models.Model):
 
 
     def __unicode__(self):
-        return "{0}-{1}".format(self.promo.slug, self.post.slug)
+        return u"{0}-{1}".format(self.promo.slug, self.post.slug)
 
 
 def get_file_path(instance, filename):
@@ -118,4 +124,4 @@ class Answer(models.Model):
         ordering = ['-date_insert']
 
     def __unicode__(self):
-        return "{0}-{1}".format(self.promo.slug, self.answer)
+        return u"{0}-{1}".format(self.promo.slug, self.answer)
