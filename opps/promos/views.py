@@ -54,7 +54,6 @@ class ChannelPromoList(ListView):
 class PromoDetail(DetailView):
 
     context_object_name = "promo"
-    template_name_field = "template_path"
     model = Promo
 
     def get_template_names(self):
@@ -73,14 +72,6 @@ class PromoDetail(DetailView):
         elif hasattr(self, 'model') and hasattr(self.model, '_meta'):
             app_label = self.model._meta.app_label
             object_name = self.model._meta.object_name.lower()
-
-        # If self.template_name_field is set, grab the value of the field
-        # of that name from the object; this is the most specific template
-        # name, if given.
-        if self.object and self.template_name_field:
-            name = getattr(self.object, self.template_name_field, None)
-            if name:
-                names.insert(0, name)
 
         if self.object.channel:
             long_slug = self.object.channel.long_slug

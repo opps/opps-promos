@@ -38,8 +38,6 @@ class Promo(Publishable):
     tags = TagField(null=True, verbose_name=_(u"Tags"))
     date_end = models.DateTimeField(_(u"End date"), null=True, blank=True)
     position  = models.IntegerField(_(u"Position"), default=0)
-    template_path  = models.CharField(_(u"Template Path"), blank=True,
-                                     null=True, max_length=255)
 
     has_upload = models.BooleanField(_(u"Has file upload?"), default=False)
     has_urlfield = models.BooleanField(_(u"Has url field?"), default=False)
