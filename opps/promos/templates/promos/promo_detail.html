@@ -62,19 +62,21 @@
 </div>
 
 
-<h2> Answers </h2>
-{% paginate answers %}
-    {% for answer in answers %}
+{%if promo.display_answers %}
+    <h2> Answers </h2>
+    {% paginate answers %}
+        {% for answer in answers %}
 
-      <div>
-        <p> {{ answer.answer }}</p>
-        <span> <strong>{{ answer.user }}</strong> in {{ answer.date_insert }}</span>
-      </div>
+          <div>
+            <p> {{ answer.answer }}</p>
+            <span> <strong>{{ answer.user }}</strong> in {{ answer.date_insert }}</span>
+          </div>
 
-    {% empty %}
+        {% empty %}
 
-     No answers yet, be the first!
+         No answers yet, be the first!
 
-    {% endfor %}
+        {% endfor %}
 
-{% show_pages %}
+    {% show_pages %}
+{% endif %}

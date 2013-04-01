@@ -44,6 +44,7 @@ class Promo(Publishable):
     has_upload = models.BooleanField(_(u"Has file upload?"), default=False)
     has_urlfield = models.BooleanField(_(u"Has url field?"), default=False)
 
+    display_answers = models.BooleanField(_(u"Display answers?"), default=True)
     display_winners = models.BooleanField(_(u"Display winners?"), default=False)
 
 
