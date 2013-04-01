@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+
+import os
+import uuid
+
 from django.db import models
 from django.db.models import Sum
 from django.utils import timezone
@@ -102,8 +106,8 @@ class PromoPost(models.Model):
 
 def get_file_path(instance, filename):
     ext = filename.split('.')[-1]
-    filename = "{0}-{1}.{2}".format(uuid.uuid4(), instance.slug, ext)
-    d = datetime.now()
+    filename = "{0}-{1}.{2}".format(uuid.uuid4(), instance.promo.slug, ext)
+    d = timezone.now()
     folder = "promos/{0}".format(d.strftime("%Y/%m/%d/"))
     return os.path.join(folder, filename)
 

@@ -38,15 +38,38 @@
     <a href="{% url "accounts:password_reset" %}">Forgot</a> your password?
 
 {# user is authenticated, check if not answered yet #}
-{% elif not answered %}
+{% elif not answered and not success %}
 
-    <form method="post">
+    <form method="post" {% if promo.has_upload %} enctype="multipart/form-data" {% endif %}>
         {% csrf_token %}
-        {{ promo.form.as_p }}
+        <div>
+            <label for="answer"> Your answer </label><br />
+            <textarea id="answer" name="answer"></textarea>
+        </div>
+
+        {% if promo.has_upload %}
+        <div>
+            <label for="answer"> Upload a file </label><br />
+            <input type="file" name="answer_file" id="answer_file" />
+        </div>
+        {% endif %}
+
+        {% if promo.has_urlfield %}
+        <div>
+            <label for="answer"> Inform the media URL i.e: youtube.com/xxx </label><br />
+            <input type="text" name="answer_url" id="answer_url" />
+        </div>
+        {% endif %}
+
         <input type="submit" value="Join">
     </form>
 
+{# just answered success message #}
+{% elif success %}
 
+Thanks for joining the promo!
+
+{# User already answered #}
 {% else %}
 
  You already answered this promo

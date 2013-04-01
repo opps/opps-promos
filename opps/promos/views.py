@@ -136,10 +136,41 @@ class PromoDetail(DetailView):
 
         self.object = self.get_object()
         context = self.get_context_data(**kwargs)
+        context['answers'] = self.object.answers
+        context['request'] = request
 
         # check if is_closed or not published
         if not self.object.is_opened or not self.object.published:
             context['error'] = _(u"Promo not opened")
             return self.render_to_response(context)
+
+        # check if already answered
+        if self.object.has_answered(request.user):
+            context['error'] = _(u" You already answered this promo")
+            return self.render_to_response(context)
+
+        answer = request.POST.get('answer')
+        answer_url = request.POST.get('answer_url')
+
+        try:
+            answer_file = request.FILES['answer_file']
+        except:
+            answer_file = None
+
+        if any((answer, answer_url, answer_file)):
+            instance = Answer(
+                user=request.user,
+                promo = self.object,
+                answer=answer
+            )
+
+        if answer_url:
+            instance.answer_url = answer_url
+
+        if answer_file:
+            instance.answer_file.save(answer_file._name, answer_file, True)
+
+        instance.save()
+        context['success'] = instance
 
         return self.render_to_response(context)
