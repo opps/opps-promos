@@ -6,17 +6,17 @@
 
  <hr>
 
+{% if error %}
+    <div class="alert alert-error">
+      {{ error }}
+    </div>
+{% endif %}
+
 <h1>{{ promo.title }}</h1>
 <div>{{ promo.headline|safe }}</div>
 
 {% if promo.main_image %}
 <img src="{% thumbor_url promo.main_image.image.url width=600  %}" width=600 />
-{% endif %}
-
-{% if error %}
-<div class="alert alert-error">
-  {{ error }}
-</div>
 {% endif %}
 
 <h3> Join </h3>
@@ -28,13 +28,18 @@
 
     Don't you have an account? <a href="#"> Register </a><br />
     Or Login <br/>
-    <form method="post">
+    <form action="{% url "accounts:login" %}" method="post">
         {% csrf_token %}
-        {{ promo.form.as_p }}
-        <input type="submit" value="login">
+        <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+        Email:
+        <input type="text" name="username" value="{{ email }}" /><br />
+        password:
+        <input type="password" name="password" value="" /><br />
+
+        <input type="submit" value="Log In" />
     </form>
 
-    <a href="{% url "socialauth_begin" "facebook" %}">Connect with  Facebook </a><br />
+    <a href="{% url "socialauth_begin" "facebook" %}?next={{ request.get_full_path }}">Connect with  Facebook </a><br />
     <a href="{% url "accounts:password_reset" %}">Forgot</a> your password?
 
 {# user is authenticated, check if not answered yet #}

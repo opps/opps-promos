@@ -163,6 +163,9 @@ class PromoDetail(DetailView):
                 promo = self.object,
                 answer=answer
             )
+        else:
+            context['error'] = _(u" You have to fill the form")
+            return self.render_to_response(context)
 
         if answer_url:
             instance.answer_url = answer_url
