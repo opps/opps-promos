@@ -27,7 +27,7 @@
 
           <div>
             <p> {{ winner.answer }}</p>
-            <span> <strong>{{ winner.user }}</strong> in {{ winner.date_insert }}</span>
+            <span> <strong>{{ winner.user.get_full_name }}</strong> in {{ winner.date_insert }}</span>
           </div>
 
         {% empty %}
