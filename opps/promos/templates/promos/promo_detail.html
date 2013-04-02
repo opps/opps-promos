@@ -97,7 +97,7 @@ Thanks for joining the promo!
 
           <div>
             <p> {{ answer.answer }}</p>
-            <span> <strong>{{ answer.user }}</strong> in {{ answer.date_insert }}</span>
+            <span> <strong>{{ answer.user.get_full_name }}</strong> in {{ answer.date_insert }}</span>
           </div>
 
         {% empty %}
