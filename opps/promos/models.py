@@ -182,5 +182,5 @@ class PromoConfig(BaseConfig):
 
     class Meta:
         permissions = (("developer", "Developer"),)
-        unique_together = ("key", "site", "channel", "article", "promo")
+        unique_together = ("key_group", "key", "site", "channel", "article", "promo")
 
