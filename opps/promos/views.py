@@ -13,9 +13,10 @@ from opps.channels.models import Channel
 from .models import Promo, Answer
 
 # IS THERE A BETTER WAY?
-settings.INSTALLED_APPS += (
-  'endless_pagination',
-)
+if not 'endless_pagination' in settings.INSTALLED_APPS:
+    settings.INSTALLED_APPS += (
+        'endless_pagination',
+    )
 
 class PromoList(ListView):
 
