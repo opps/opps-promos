@@ -8,7 +8,7 @@ register = template.Library()
 def get_active_promos(number=5, channel_slug=None,
                 template_name='promos/actives.html'):
 
-    active_promos = Promo.objects.all()
+    active_promos = Promo.objects.all_opened()
     if channel_slug:
         active_promos = active_promos.filter(channel__slug=channel_slug)
 
