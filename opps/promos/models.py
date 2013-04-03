@@ -4,7 +4,7 @@ import os
 import uuid
 
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -16,6 +16,20 @@ from opps.core.models import Publishable, BaseBox, BaseConfig
 from opps.channels.models import Channel
 from opps.articles.models import Post
 from opps.images.models import Image
+
+
+class PromoManager(models.Manager):
+    def all_published(self):
+        return super(PromoManager, self).get_query_set().filter(
+            date_available__lte=timezone.now(), published=True)
+
+    def all_opened(self):
+        return super(PromoManager, self).get_query_set().filter(
+            date_available__lte=timezone.now(),
+            published=True
+        ).filter(
+           Q(date_end__gte=timezone.now()) | Q(date_end__isnull=True)
+        )
 
 
 class Promo(Publishable):
@@ -87,6 +101,8 @@ class Promo(Publishable):
 
     def __unicode__(self):
         return self.title
+
+    objects = PromoManager()
 
     class Meta:
         ordering = ['position']
