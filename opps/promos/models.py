@@ -12,16 +12,13 @@ from django.core.exceptions import ValidationError
 
 from taggit.managers import TaggableManager
 
-from opps.core.models import Publishable, BaseBox, BaseConfig
+from opps.core.models import Publishable, PublishableManager, BaseBox, BaseConfig
 from opps.channels.models import Channel
 from opps.articles.models import Post
 from opps.images.models import Image
 
 
-class PromoManager(models.Manager):
-    def all_published(self):
-        return super(PromoManager, self).get_query_set().filter(
-            date_available__lte=timezone.now(), published=True)
+class PromoManager(PublishableManager):
 
     def all_opened(self):
         return super(PromoManager, self).get_query_set().filter(
