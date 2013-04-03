@@ -8,10 +8,11 @@ from django.db.models import Sum
 from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 
 from taggit.managers import TaggableManager
 
-from opps.core.models import Publishable
+from opps.core.models import Publishable, BaseBox, BaseConfig
 from opps.channels.models import Channel
 from opps.articles.models import Post
 from opps.images.models import Image
@@ -128,3 +129,58 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return u"{0}-{1}".format(self.promo.slug, self.answer)
+
+
+class PromoBox(BaseBox):
+
+    promos = models.ManyToManyField(
+        'promos.Promo',
+        null=True, blank=True,
+        related_name='promobox_promos',
+        through='promos.PromoBoxPromos'
+    )
+
+
+class PromoBoxPromos(models.Model):
+    promobox = models.ForeignKey(
+        'promos.PromoBox',
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='promoboxpromos_promoboxes',
+        verbose_name=_(u'Promo Box'),
+    )
+    promo = models.ForeignKey(
+        'promos.Promo',
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='promoboxpromos_promos',
+        verbose_name=_(u'Promo'),
+    )
+    order = models.PositiveIntegerField(_(u'Order'), default=0)
+
+    def __unicode__(self):
+        return u"{0}-{1}".format(self.promobox.slug, self.promo.slug)
+
+    def clean(self):
+
+        if not self.promo.published:
+            raise ValidationError('Promo not published!')
+
+        if self.promo.date_available <= timezone.now():
+            raise ValidationError('Promo not published!')
+
+
+class PromoConfig(BaseConfig):
+
+    promo = models.ForeignKey(
+        'promos.Promo',
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='promoconfig_promos',
+        verbose_name=_(u'Promo'),
+    )
+
+    class Meta:
+        permissions = (("developer", "Developer"),)
+        unique_together = ("key", "site", "channel", "article", "promo")
+
