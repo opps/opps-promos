@@ -177,10 +177,10 @@ class PromoBoxPromos(models.Model):
     def clean(self):
 
         if not self.promo.published:
-            raise ValidationError('Promo not published!')
+            raise ValidationError(_(u'Promo not published!'))
 
-        if self.promo.date_available <= timezone.now():
-            raise ValidationError('Promo not published!')
+        if not self.promo.date_available <= timezone.now():
+            raise ValidationError(_(u'Promo date_available is greater than today!'))
 
 
 class PromoConfig(BaseConfig):
