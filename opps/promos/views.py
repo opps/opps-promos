@@ -28,7 +28,6 @@ class PromoList(ListView):
 
     @property
     def queryset(self):
-        print self.request.user
         return Promo.objects.all_published()
 
 
