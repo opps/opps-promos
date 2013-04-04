@@ -10,6 +10,8 @@ from redactor.widgets import RedactorEditor
 from .models import (Promo, Answer, PromoPost, PromoBox,
                      PromoBoxPromos, PromoConfig)
 
+from opps.core.admin import PublishableAdmin
+
 
 class PromoAdminForm(forms.ModelForm):
     class Meta:
@@ -32,7 +34,7 @@ class PromoPostInline(admin.TabularInline):
     classes = ('collapse',)
 
 
-class PromoAdmin(admin.ModelAdmin):
+class PromoAdmin(PublishableAdmin):
     form = PromoAdminForm
     prepopulated_fields = {"slug": ["title"]}
     list_display = ['title', 'channel', 'date_available', 'date_end', 'published']
@@ -78,17 +80,6 @@ class PromoAdmin(admin.ModelAdmin):
             'fields': ('result', 'display_winners')}),
     )
 
-    def save_model(self, request, obj, form, change):
-        User = get_user_model()
-        try:
-            obj.site = obj.channel.site if obj.channel else Site.objects.get(pk=1)
-            if obj.user:
-                pass
-        except User.DoesNotExist:
-            obj.user = request.user
-
-        super(PromoAdmin, self).save_model(request, obj, form, change)
-
 
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ['promo', 'user', 'date_insert', 'published', 'is_winner']
@@ -108,7 +99,7 @@ class PromoBoxPromosInline(admin.TabularInline):
         'fields': ('promo', 'order')})]
 
 
-class PromoBoxAdmin(admin.ModelAdmin):
+class PromoBoxAdmin(PublishableAdmin):
     prepopulated_fields = {"slug": ["name"]}
     list_display = ['name', 'date_available', 'published']
     list_filter = ['date_available', 'published']
@@ -126,33 +117,14 @@ class PromoBoxAdmin(admin.ModelAdmin):
             'fields': ('published', 'date_available')}),
     )
 
-    def save_model(self, request, obj, form, change):
-        User = get_user_model()
-        try:
-            if obj.user:
-                pass
-        except User.DoesNotExist:
-            obj.user = request.user
 
-        super(PromoBoxAdmin, self).save_model(request, obj, form, change)
-
-
-class PromoConfigAdmin(admin.ModelAdmin):
+class PromoConfigAdmin(PublishableAdmin):
     list_display = ['key','key_group', 'channel', 'date_insert', 'date_available', 'published']
     list_filter = ["key", 'key_group', "channel", "published"]
     search_fields = ["key", "key_group", "value"]
     raw_id_fields = ['promo', 'channel', 'article']
     exclude = ('user',)
 
-    def save_model(self, request, obj, form, change):
-        User = get_user_model()
-        try:
-            if obj.user:
-                pass
-        except User.DoesNotExist:
-            obj.user = request.user
-
-        super(PromoConfigAdmin, self).save_model(request, obj, form, change)
 
 admin.site.register(Promo, PromoAdmin)
 admin.site.register(Answer, AnswerAdmin)
