@@ -70,7 +70,7 @@ class PromoAdmin(PublishableAdmin):
         (_(u'Publication'), {
             'classes': ('extrapretty'),
             'fields': ('published', 'date_available', 'date_end',
-                'position', 'has_upload','has_urlfield', 'display_answers')}),
+                'order', 'has_upload','has_urlfield', 'display_answers')}),
 
         (_(u'Participation'), {
             'fields': ('send_confirmation_email', 'confirmation_email_txt',

@@ -53,7 +53,7 @@ class Promo(Publishable):
 
     tags = TaggableManager(blank=True)
     date_end = models.DateTimeField(_(u"End date"), null=True, blank=True)
-    position  = models.IntegerField(_(u"Position"), default=0)
+    order  = models.IntegerField(_(u"Order"), default=0)
 
     has_upload = models.BooleanField(_(u"Has file upload?"), default=False)
     has_urlfield = models.BooleanField(_(u"Has url field?"), default=False)
@@ -102,7 +102,7 @@ class Promo(Publishable):
     objects = PromoManager()
 
     class Meta:
-        ordering = ['position']
+        ordering = ['order']
 
 
 class PromoPost(models.Model):
