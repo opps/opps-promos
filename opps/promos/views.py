@@ -157,7 +157,10 @@ class PromoDetail(DetailView):
         except:
             answer_file = None
 
-        if any((answer, answer_url, answer_file)):
+        if not request.POST.get('agree'):
+            context['error'] = _(u" You have to agree with the rules")
+            return self.render_to_response(context)
+        elif any((answer, answer_url, answer_file)):
             instance = Answer(
                 user=request.user,
                 promo = self.object,
