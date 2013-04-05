@@ -140,6 +140,13 @@ class Answer(models.Model):
     class Meta:
         ordering = ['-date_insert']
 
+    @property
+    def filename(self):
+        print dir(self.answer_file)
+        print os.path.basename(self.answer_file.name)
+
+        return os.path.basename(self.answer_file.name)
+
     def __unicode__(self):
         return u"{0}-{1}".format(self.promo.slug, self.answer)
 
