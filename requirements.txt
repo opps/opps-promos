@@ -1,2 +1,2 @@
--e git+https://github.com/oppsproject/opps.git#egg=opps
+-e git+https://github.com/opps/opps.git#egg=opps
 django-endless-pagination==1.1
