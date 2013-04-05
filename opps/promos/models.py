@@ -142,9 +142,6 @@ class Answer(models.Model):
 
     @property
     def filename(self):
-        print dir(self.answer_file)
-        print os.path.basename(self.answer_file.name)
-
         return os.path.basename(self.answer_file.name)
 
     def __unicode__(self):
