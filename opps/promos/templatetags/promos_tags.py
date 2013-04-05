@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
+from django.conf import settings
+from django.utils import timezone
 from opps.promos.models import Promo, PromoBox
 
 register = template.Library()
