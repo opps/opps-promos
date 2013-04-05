@@ -6,9 +6,10 @@ from opps.promos.models import Promo, PromoBox
 
 register = template.Library()
 
+
 @register.simple_tag
 def get_active_promos(number=5, channel_slug=None,
-                template_name='promos/actives.html'):
+                      template_name='promos/actives.html'):
 
     active_promos = Promo.objects.all_opened()
     if channel_slug:
@@ -22,16 +23,17 @@ def get_active_promos(number=5, channel_slug=None,
                                       'channel_slug': channel_slug,
                                       'number': number}))
 
+
 @register.simple_tag
-def get_promobox(slug, promobox_slug=None,
+def get_promobox(slug, channel_slug=None,
                  template_name='promos/promobox_detail.html'):
     if channel_slug:
         slug = u"{0}-{1}".format(slug, promobox_slug)
 
     try:
         box = PromoBox.objects.get(site=settings.SITE_ID, slug=slug,
-                                     date_available__lte=timezone.now(),
-                                     published=True)
+                                   date_available__lte=timezone.now(),
+                                   published=True)
     except PromoBox.DoesNotExist:
         box = None
 
@@ -43,9 +45,9 @@ def get_promobox(slug, promobox_slug=None,
 @register.simple_tag
 def get_all_promobox(channel_slug, template_name=None):
     boxes = PromoBox.objects.filter(site=settings.SITE_ID,
-                                      date_available__lte=timezone.now(),
-                                      published=True,
-                                      channel__slug=channel_slug)
+                                    date_available__lte=timezone.now(),
+                                    published=True,
+                                    channel__slug=channel_slug)
 
     t = template.loader.get_template('promos/promobox_list.html')
     if template_name:
