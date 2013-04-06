@@ -9,11 +9,15 @@ register = template.Library()
 
 @register.simple_tag
 def get_active_promos(number=5, channel_slug=None,
-                      template_name='promos/actives.html'):
+                      template_name='promos/actives.html',
+                      exclude_slug=None):
 
     active_promos = Promo.objects.all_opened()
     if channel_slug:
         active_promos = active_promos.filter(channel__slug=channel_slug)
+
+    if exclude_slug:
+        active_promos = active_promos.exclude(slug=exclude_slug)
 
     active_promos = active_promos[:number]
 
