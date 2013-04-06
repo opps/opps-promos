@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django import forms
-from django.contrib.auth import get_user_model
-from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
 
 from redactor.widgets import RedactorEditor
@@ -70,11 +68,12 @@ class PromoAdmin(PublishableAdmin):
         (_(u'Publication'), {
             'classes': ('extrapretty'),
             'fields': ('published', 'date_available', 'date_end',
-                'order', 'has_upload','has_urlfield', 'display_answers')}),
+                       'order', 'has_upload', 'has_urlfield',
+                       'display_answers')}),
 
         (_(u'Participation'), {
             'fields': ('send_confirmation_email', 'confirmation_email_txt',
-                "confirmation_email_html", "confirmation_email_address")}),
+                       "confirmation_email_html", "confirmation_email_address")}),
 
         (_(u'Result'), {
             'fields': ('result', 'display_winners')}),
@@ -119,7 +118,8 @@ class PromoBoxAdmin(PublishableAdmin):
 
 
 class PromoConfigAdmin(PublishableAdmin):
-    list_display = ['key','key_group', 'channel', 'date_insert', 'date_available', 'published']
+    list_display = ['key', 'key_group', 'channel', 'date_insert',
+                    'date_available', 'published']
     list_filter = ["key", 'key_group', "channel", "published"]
     search_fields = ["key", "key_group", "value"]
     raw_id_fields = ['promo', 'channel', 'article']

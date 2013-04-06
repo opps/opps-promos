@@ -24,22 +24,24 @@ try:
 except:
     long_description = promos.__description__
 
-setup(name='opps-promos',
-        namespace_packages=['opps', 'opps.promos'],
-        version=promos.__version__,
-        description=promos.__description__,
-        long_description=long_description,
-        classifiers=classifiers,
-        keywords='promos opps cms django apps magazines websites',
-        author=promos.__author__,
-        author_email=promos.__email__,
-        url='http://oppsproject.org',
-        download_url="https://github.com/YACOWS/opps-promos/tarball/master",
-        license=promos.__license__,
-        packages=find_packages(exclude=('doc', 'docs',)),
-        package_dir={'opps': 'opps'},
-        install_requires=install_requires,
-        include_package_data=True,
-        package_data={
-           'promos': ['templates/*']
-        })
+setup(
+    name='opps-promos',
+    namespace_packages=['opps', 'opps.promos'],
+    version=promos.__version__,
+    description=promos.__description__,
+    long_description=long_description,
+    classifiers=classifiers,
+    keywords='promos opps cms django apps magazines websites',
+    author=promos.__author__,
+    author_email=promos.__email__,
+    url='http://oppsproject.org',
+    download_url="https://github.com/YACOWS/opps-promos/tarball/master",
+    license=promos.__license__,
+    packages=find_packages(exclude=('doc', 'docs',)),
+    package_dir={'opps': 'opps'},
+    install_requires=install_requires,
+    include_package_data=True,
+    package_data={
+        'promos': ['templates/*']
+    }
+)

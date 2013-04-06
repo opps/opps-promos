@@ -4,7 +4,7 @@ import os
 import uuid
 
 from django.db import models
-from django.db.models import Sum, Q
+from django.db.models import Q
 from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -25,7 +25,7 @@ class PromoManager(PublishableManager):
             date_available__lte=timezone.now(),
             published=True
         ).filter(
-           Q(date_end__gte=timezone.now()) | Q(date_end__isnull=True)
+            Q(date_end__gte=timezone.now()) | Q(date_end__isnull=True)
         )
 
 
@@ -53,7 +53,7 @@ class Promo(Publishable):
 
     tags = TaggableManager(blank=True)
     date_end = models.DateTimeField(_(u"End date"), null=True, blank=True)
-    order  = models.IntegerField(_(u"Order"), default=0)
+    order = models.IntegerField(_(u"Order"), default=0)
 
     has_upload = models.BooleanField(_(u"Has file upload?"), default=False)
     has_urlfield = models.BooleanField(_(u"Has url field?"), default=False)
@@ -61,16 +61,24 @@ class Promo(Publishable):
     display_answers = models.BooleanField(_(u"Display answers?"), default=True)
     display_winners = models.BooleanField(_(u"Display winners?"), default=False)
 
-
-    send_confirmation_email = models.BooleanField(_(u"Send confirmation email?"),
-            default=False)
-
-    confirmation_email_txt = models.TextField(_(u'Confirmation email (Text)'),
-            blank=True)
-    confirmation_email_html = models.TextField(_(u'Confirmation email (HTML)'),
-            blank=True)
-    confirmation_email_address = models.EmailField(_(u'Email'), max_length=255,
-            null=True, blank=True)
+    send_confirmation_email = models.BooleanField(
+        _(u"Send confirmation email?"),
+        default=False
+    )
+    confirmation_email_txt = models.TextField(
+        _(u'Confirmation email (Text)'),
+        blank=True
+    )
+    confirmation_email_html = models.TextField(
+        _(u'Confirmation email (HTML)'),
+        blank=True
+    )
+    confirmation_email_address = models.EmailField(
+        _(u'Email'),
+        max_length=255,
+        null=True,
+        blank=True
+    )
 
     @property
     def is_opened(self):
@@ -106,13 +114,22 @@ class Promo(Publishable):
 
 
 class PromoPost(models.Model):
-    post = models.ForeignKey(Post, verbose_name=_(u'Promo Post'), null=True,
-                             blank=True, related_name='promopost_post',
-                             on_delete=models.SET_NULL)
-    promo = models.ForeignKey(Promo, verbose_name=_(u'Promo'), null=True,
-                                   blank=True, related_name='promo',
-                                   on_delete=models.SET_NULL)
-
+    post = models.ForeignKey(
+        Post,
+        verbose_name=_(u'Promo Post'),
+        null=True,
+        blank=True,
+        related_name='promopost_post',
+        on_delete=models.SET_NULL
+    )
+    promo = models.ForeignKey(
+        Promo,
+        verbose_name=_(u'Promo'),
+        null=True,
+        blank=True,
+        related_name='promo',
+        on_delete=models.SET_NULL
+    )
 
     def __unicode__(self):
         return u"{0}-{1}".format(self.promo.slug, self.post.slug)
@@ -200,4 +217,3 @@ class PromoConfig(BaseConfig):
     class Meta:
         permissions = (("developer", "Developer"),)
         unique_together = ("key_group", "key", "site", "channel", "article", "promo")
-

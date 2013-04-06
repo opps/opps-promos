@@ -29,10 +29,7 @@ def get_active_promos(number=5, channel_slug=None,
 
 
 @register.simple_tag
-def get_promobox(slug, channel_slug=None,
-                 template_name='promos/promobox_detail.html'):
-    if channel_slug:
-        slug = u"{0}-{1}".format(slug, promobox_slug)
+def get_promobox(slug, template_name='promos/promobox_detail.html'):
 
     try:
         box = PromoBox.objects.get(site=settings.SITE_ID, slug=slug,

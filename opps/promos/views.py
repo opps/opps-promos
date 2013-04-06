@@ -18,6 +18,7 @@ if not 'endless_pagination' in settings.INSTALLED_APPS:
         'endless_pagination',
     )
 
+
 class PromoList(ListView):
 
     context_object_name = "promos"
@@ -45,10 +46,10 @@ class ChannelPromoList(ListView):
         long_slug = self.kwargs['channel__long_slug'][:-1]
         get_object_or_404(Channel, long_slug=long_slug)
         return Promo.objects.filter(
-                   channel__long_slug=long_slug,
-                   published=True,
-                   date_available__lte=timezone.now()
-               )
+            channel__long_slug=long_slug,
+            published=True,
+            date_available__lte=timezone.now()
+        )
 
 
 class PromoDetail(DetailView):
@@ -92,7 +93,6 @@ class PromoDetail(DetailView):
             app_label, self.kwargs['slug']
         ))
 
-
         # The least-specific option is the default <app>/<model>_detail.html;
         # only use this if the object in question is a model.
         if hasattr(self.object, '_meta'):
@@ -113,11 +113,11 @@ class PromoDetail(DetailView):
     def get_object(self):
         self.voted = False
         return get_object_or_404(
-                   Promo,
-                   slug=self.kwargs['slug'],
-                   published=True,
-                   date_available__lte=timezone.now()
-               )
+            Promo,
+            slug=self.kwargs['slug'],
+            published=True,
+            date_available__lte=timezone.now()
+        )
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -163,7 +163,7 @@ class PromoDetail(DetailView):
         elif any((answer, answer_url, answer_file)):
             instance = Answer(
                 user=request.user,
-                promo = self.object,
+                promo=self.object,
                 answer=answer
             )
         else:
