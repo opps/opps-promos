@@ -67,8 +67,8 @@ class PromoAdmin(PublishableAdmin):
 
         (_(u'Publication'), {
             'classes': ('extrapretty'),
-            'fields': ('published', 'date_available', 'date_end',
-                       'order', 'has_upload', 'has_urlfield',
+            'fields': ('published', ('date_available', 'date_end'),
+                       'order', ('has_upload', 'has_urlfield'),
                        'display_answers')}),
 
         (_(u'Participation'), {
@@ -110,7 +110,7 @@ class PromoBoxAdmin(PublishableAdmin):
         (_(u'Identification'), {
             'fields': ('site', 'name', 'slug')}),
         (_(u'Relationships'), {
-            'fields': ('channel', 'article')}),
+            'fields': (('channel', 'article'),)}),
         (_(u'Publication'), {
             'classes': ('extrapretty'),
             'fields': ('published', 'date_available')}),
