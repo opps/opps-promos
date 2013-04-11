@@ -7,6 +7,8 @@ from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.core.mail import EmailMultiAlternatives
+
 
 from opps.channels.models import Channel
 
@@ -17,6 +19,21 @@ if not 'endless_pagination' in settings.INSTALLED_APPS:
     settings.INSTALLED_APPS += (
         'endless_pagination',
     )
+
+
+# TODO: Delay it on Celery
+def send_confirmation_email(subject, obj, user):
+    msg = EmailMultiAlternatives(
+        subject,
+        obj.confirmation_email_txt,
+        obj.confirmation_email_address,
+        [user.email]
+    )
+    msg.attach_alternative(
+        obj.confirmation_email_html,
+        'text/html'
+    )
+    return msg.send()
 
 
 class PromoList(ListView):
@@ -178,5 +195,10 @@ class PromoDetail(DetailView):
 
         instance.save()
         context['success'] = instance
+
+        # send confirmation email
+        if self.object.send_confirmation_email:
+            subject = _(u"You are now registered for %s.") % self.object.title
+            send_confirmation_email(subject, self.object, request.user)
 
         return self.render_to_response(context)
