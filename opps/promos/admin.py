@@ -39,7 +39,7 @@ class PromoAdmin(PublishableAdmin):
     list_filter = ["date_end", "date_available", "published", "channel"]
     search_fields = ["title", "headline", "description"]
     exclude = ('user',)
-    raw_id_fields = ['main_image', 'channel']
+    raw_id_fields = ['main_image', 'banner', 'channel']
     inlines = [PromoPostInline]
 
     fieldsets = (
@@ -48,7 +48,7 @@ class PromoAdmin(PublishableAdmin):
 
         (_(u'Content'), {
             'classes': ('extrapretty'),
-            'fields': ('main_image', 'tags')}),
+            'fields': ('main_image', 'banner', 'tags')}),
 
         (_(u'Headline'), {
             'classes': ('extrapretty'),
@@ -68,7 +68,7 @@ class PromoAdmin(PublishableAdmin):
         (_(u'Publication'), {
             'classes': ('extrapretty'),
             'fields': ('published', ('date_available', 'date_end'),
-                       'order', ('has_upload', 'has_urlfield'),
+                       'order', 'has_upload', 'has_urlfield',
                        'display_answers')}),
 
         (_(u'Participation'), {
@@ -76,6 +76,7 @@ class PromoAdmin(PublishableAdmin):
                        "confirmation_email_html", "confirmation_email_address")}),
 
         (_(u'Result'), {
+            'classes': ('extrapretty'),
             'fields': ('result', 'display_winners')}),
     )
 

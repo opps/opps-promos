@@ -50,7 +50,11 @@ class Promo(Publishable):
                                    verbose_name=_(u'Promo Image'), blank=True,
                                    null=True, on_delete=models.SET_NULL,
                                    related_name='promo_image')
-
+    banner = models.ForeignKey(Image,
+                               verbose_name=_(u'Promo Banner'), blank=True,
+                               null=True, on_delete=models.SET_NULL,
+                               related_name='promo_banner',
+                               help_text=_(u'300 x 498 banner image'))
     tags = TaggableManager(blank=True)
     date_end = models.DateTimeField(_(u"End date"), null=True, blank=True)
     order = models.IntegerField(_(u"Order"), default=0)
