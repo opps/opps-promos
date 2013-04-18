@@ -1,0 +1,180 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-18 11:58-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: admin.py:46 admin.py:111
+msgid "Identification"
+msgstr ""
+
+#: admin.py:49
+msgid "Content"
+msgstr ""
+
+#: admin.py:53 models.py:37
+msgid "Headline"
+msgstr ""
+
+#: admin.py:57 models.py:38
+msgid "Description"
+msgstr ""
+
+#: admin.py:61 models.py:40
+msgid "Rules"
+msgstr ""
+
+#: admin.py:65 admin.py:113
+msgid "Relationships"
+msgstr ""
+
+#: admin.py:68 admin.py:115
+msgid "Publication"
+msgstr ""
+
+#: admin.py:74
+msgid "Participation"
+msgstr ""
+
+#: admin.py:78 models.py:41
+msgid "Result"
+msgstr ""
+
+#: models.py:33
+msgid "Title"
+msgstr ""
+
+#: models.py:34
+msgid "URL"
+msgstr ""
+
+#: models.py:50
+msgid "Promo Image"
+msgstr ""
+
+#: models.py:54
+msgid "Promo Banner"
+msgstr ""
+
+#: models.py:57
+msgid "300 x 498 banner image"
+msgstr ""
+
+#: models.py:59
+msgid "End date"
+msgstr ""
+
+#: models.py:60 models.py:197
+msgid "Order"
+msgstr ""
+
+#: models.py:62
+msgid "Has file upload?"
+msgstr ""
+
+#: models.py:63
+msgid "Has url field?"
+msgstr ""
+
+#: models.py:65
+msgid "Display answers?"
+msgstr ""
+
+#: models.py:66
+msgid "Display winners?"
+msgstr ""
+
+#: models.py:69
+msgid "Send confirmation email?"
+msgstr ""
+
+#: models.py:73
+msgid "Confirmation email (Text)"
+msgstr ""
+
+#: models.py:77
+msgid "Confirmation email (HTML)"
+msgstr ""
+
+#: models.py:81
+msgid "Email"
+msgstr ""
+
+#: models.py:123
+msgid "Promo Post"
+msgstr ""
+
+#: models.py:131 models.py:195 models.py:218
+msgid "Promo"
+msgstr ""
+
+#: models.py:153
+msgid "Answer"
+msgstr ""
+
+#: models.py:154
+msgid "Answer URL"
+msgstr ""
+
+#: models.py:156
+msgid "Published"
+msgstr ""
+
+#: models.py:157
+msgid "Date insert"
+msgstr ""
+
+#: models.py:158
+msgid "Date update"
+msgstr ""
+
+#: models.py:159
+msgid "Is winner?"
+msgstr ""
+
+#: models.py:188
+msgid "Promo Box"
+msgstr ""
+
+#: models.py:205
+msgid "Promo not published!"
+msgstr ""
+
+#: models.py:208
+msgid "Promo date_available is greater than today!"
+msgstr ""
+
+#: views.py:161
+msgid "Promo not opened"
+msgstr ""
+
+#: views.py:166
+msgid " You already answered this promo"
+msgstr ""
+
+#: views.py:178
+msgid " You have to agree with the rules"
+msgstr ""
+
+#: views.py:187
+msgid " You have to fill the form"
+msgstr ""
+
+#: views.py:201
+#, python-format
+msgid "You are now registered for %s."
+msgstr ""
