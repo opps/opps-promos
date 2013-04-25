@@ -1,0 +1,16 @@
+{{ object.title }}
+{{ object.title|slugify }}
+{{ object.title|safe }}
+{{ object.title|striptags }}
+{{ object.headline }}
+{{ object.headline|slugify }}
+{{ object.headline|safe }}
+{{ object.headline|striptags }}
+{{ object.description }}
+{{ object.description|slugify }}
+{{ object.description|safe }}
+{{ object.description|striptags }}
+{% for tag in object.tags.all %}
+{{tag.name}}\n
+{{tag.name|slugify }}\n
+{% endfor %}

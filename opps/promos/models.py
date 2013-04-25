@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 
 from taggit.managers import TaggableManager
 
@@ -16,6 +17,8 @@ from opps.core.models import Publishable, PublishableManager, BaseBox, BaseConfi
 from opps.channels.models import Channel
 from opps.articles.models import Post
 from opps.images.models import Image
+
+app_namespace = getattr(settings, 'OPPS_PROMOS_URL_NAMESPACE', 'promos')
 
 
 class PromoManager(PublishableManager):
@@ -115,6 +118,19 @@ class Promo(Publishable):
 
     class Meta:
         ordering = ['order']
+
+    def get_absolute_url(self):
+        return reverse(
+            '{0}:open_promo'.format(app_namespace),
+            kwargs={'slug': self.slug}
+        )
+
+    def get_thumb(self):
+        return self.main_image
+
+    @property
+    def search_category(self):
+        return _("Promo")
 
 
 class PromoPost(models.Model):
