@@ -16,6 +16,7 @@ from taggit.managers import TaggableManager
 from opps.core.models import Publishable, PublishableManager, BaseBox, BaseConfig
 from opps.channels.models import Channel
 from opps.articles.models import Post
+from opps.core.models import Slugged
 from opps.images.models import Image
 
 app_namespace = getattr(settings, 'OPPS_PROMOS_URL_NAMESPACE', 'promos')
@@ -32,11 +33,8 @@ class PromoManager(PublishableManager):
         )
 
 
-class Promo(Publishable):
+class Promo(Publishable, Slugged):
     title = models.CharField(_(u"Title"), max_length=255)
-    slug = models.SlugField(_(u"URL"), max_length=150, unique=True,
-                            db_index=True)
-
     headline = models.TextField(_(u"Headline"), blank=True)
     description = models.TextField(_(u"Description"), blank=True)
 

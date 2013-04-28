@@ -44,7 +44,7 @@ class PromoAdmin(PublishableAdmin):
 
     fieldsets = (
         (_(u'Identification'), {
-            'fields': ('title', 'slug')}),
+            'fields': ('site', 'title', 'slug')}),
 
         (_(u'Content'), {
             'classes': ('extrapretty'),
