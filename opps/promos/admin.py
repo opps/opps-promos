@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from django.conf import settings
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -9,6 +11,7 @@ from .models import (Promo, Answer, PromoPost, PromoBox,
                      PromoBoxPromos, PromoConfig)
 
 from opps.core.admin import PublishableAdmin
+from opps.core.admin import apply_rules
 
 
 class PromoAdminForm(forms.ModelForm):
@@ -79,6 +82,11 @@ class PromoAdmin(PublishableAdmin):
             'classes': ('extrapretty'),
             'fields': ('result', 'display_winners')}),
     )
+
+OPPS_ADMIN_RULES = getattr(settings, 'OPPS_ADMIN_RULES', {})
+promo_admin_rules = OPPS_ADMIN_RULES.get('promos.PromoAdmin')
+if promo_admin_rules:
+    PromoAdmin = apply_rules(PromoAdmin, promo_admin_rules)
 
 
 class AnswerAdmin(admin.ModelAdmin):
