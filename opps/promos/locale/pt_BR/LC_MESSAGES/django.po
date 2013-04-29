@@ -1,180 +1,183 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
+# Andre Melo <algmelo@gmail.com>, 2013
+# Ellison Leão <ellisonleao@gmail.com>, 2013
+# josene <jsene@yacows.com.br>, 2013
+# Bruno Rocha <rochacbruno@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: opps\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-18 11:58-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2013-04-26 18:13+0000\n"
+"Last-Translator: josene <jsene@yacows.com.br>\n"
+"Language-Team: Portuguese (Brazil) <opps-developers@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: admin.py:46 admin.py:111
 msgid "Identification"
-msgstr ""
+msgstr "Identificação"
 
 #: admin.py:49
 msgid "Content"
-msgstr ""
+msgstr "Conteúdo"
 
 #: admin.py:53 models.py:37
 msgid "Headline"
-msgstr ""
+msgstr "Cabeçalho"
 
 #: admin.py:57 models.py:38
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: admin.py:61 models.py:40
 msgid "Rules"
-msgstr ""
+msgstr "Regras"
 
 #: admin.py:65 admin.py:113
 msgid "Relationships"
-msgstr ""
+msgstr "Relacionamentos"
 
 #: admin.py:68 admin.py:115
 msgid "Publication"
-msgstr ""
+msgstr "Publicação"
 
 #: admin.py:74
 msgid "Participation"
-msgstr ""
+msgstr "Participação"
 
 #: admin.py:78 models.py:41
 msgid "Result"
-msgstr ""
+msgstr "Resultado"
 
 #: models.py:33
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: models.py:34
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: models.py:50
 msgid "Promo Image"
-msgstr ""
+msgstr "Imagem da promoção"
 
 #: models.py:54
 msgid "Promo Banner"
-msgstr ""
+msgstr "Banner da promoção"
 
 #: models.py:57
 msgid "300 x 498 banner image"
-msgstr ""
+msgstr "Imagem de banner 300 x 498"
 
 #: models.py:59
 msgid "End date"
-msgstr ""
+msgstr "Data de finalização"
 
 #: models.py:60 models.py:197
 msgid "Order"
-msgstr ""
+msgstr "Ordem"
 
 #: models.py:62
 msgid "Has file upload?"
-msgstr ""
+msgstr "Habilitar upload de arquivo?"
 
 #: models.py:63
 msgid "Has url field?"
-msgstr ""
+msgstr "Habilitar campo de URL?"
 
 #: models.py:65
 msgid "Display answers?"
-msgstr ""
+msgstr "Mostrar perguntas?"
 
 #: models.py:66
 msgid "Display winners?"
-msgstr ""
+msgstr "Mostrar vencedores?"
 
 #: models.py:69
 msgid "Send confirmation email?"
-msgstr ""
+msgstr "Enviar e-mail de confirmação?"
 
 #: models.py:73
 msgid "Confirmation email (Text)"
-msgstr ""
+msgstr "E-mail de confirmação (texto puro)"
 
 #: models.py:77
 msgid "Confirmation email (HTML)"
-msgstr ""
+msgstr "E-mail de confirmação (HTML)"
 
 #: models.py:81
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: models.py:123
 msgid "Promo Post"
-msgstr ""
+msgstr "Post de promoção"
 
 #: models.py:131 models.py:195 models.py:218
 msgid "Promo"
-msgstr ""
+msgstr "Promoção"
 
 #: models.py:153
 msgid "Answer"
-msgstr ""
+msgstr "Resposta"
 
 #: models.py:154
 msgid "Answer URL"
-msgstr ""
+msgstr "URL da resposta"
 
 #: models.py:156
 msgid "Published"
-msgstr ""
+msgstr "Publicado"
 
 #: models.py:157
 msgid "Date insert"
-msgstr ""
+msgstr "Data de inserção"
 
 #: models.py:158
 msgid "Date update"
-msgstr ""
+msgstr "Data de atualização"
 
 #: models.py:159
 msgid "Is winner?"
-msgstr ""
+msgstr "É ganhador?"
 
 #: models.py:188
 msgid "Promo Box"
-msgstr ""
+msgstr "Box de promoção"
 
 #: models.py:205
 msgid "Promo not published!"
-msgstr ""
+msgstr "Promoção não publicada!"
 
 #: models.py:208
 msgid "Promo date_available is greater than today!"
-msgstr ""
+msgstr "Data de publicação da promoção é maior do que a data atual"
 
 #: views.py:161
 msgid "Promo not opened"
-msgstr ""
+msgstr "Promoção não aberta"
 
 #: views.py:166
 msgid " You already answered this promo"
-msgstr ""
+msgstr "Você já respondeu a esta promoção"
 
 #: views.py:178
 msgid " You have to agree with the rules"
-msgstr ""
+msgstr "Você tem que concordar com as regras"
 
 #: views.py:187
 msgid " You have to fill the form"
-msgstr ""
+msgstr "Você tem que preencher o formulário"
 
 #: views.py:201
 #, python-format
 msgid "You are now registered for %s."
-msgstr ""
+msgstr "Você está agora registrado por %s."
