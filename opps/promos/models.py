@@ -56,7 +56,7 @@ class Promo(Publishable, Slugged):
                                null=True, on_delete=models.SET_NULL,
                                related_name='promo_banner',
                                help_text=_(u'300 x 498 banner image'))
-    tags = TaggableManager(blank=True)
+    tags = TaggableManager(blank=True, verbose_name=u'Tags')
     date_end = models.DateTimeField(_(u"End date"), null=True, blank=True)
     order = models.IntegerField(_(u"Order"), default=0)
 

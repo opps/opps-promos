@@ -147,6 +147,9 @@ class PromoDetail(DetailView):
 
         context['answered'] = self.object.has_answered(request.user)
 
+        if self.object.channel:
+            context['channel'] = self.object.channel
+
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
