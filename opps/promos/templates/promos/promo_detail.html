@@ -1,5 +1,4 @@
-{% load thumbor_tags %}
-{% load endless %}
+{% load image_tags endless %}
 
  <a href="{% url 'promos:list_promos'%}">< All promos </a><br/>
  Opps Promo Detail
@@ -16,7 +15,7 @@
 <div>{{ promo.headline|safe }}</div>
 
 {% if promo.main_image %}
-<img src="{% thumbor_url promo.main_image.image.url width=600  %}" width=600 />
+<img src="{% image_url promo.main_image.image.url width=600  %}" width=600 />
 {% endif %}
 
 <h3> Join </h3>
