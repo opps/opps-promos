@@ -196,12 +196,14 @@ class PromoBox(BaseBox):
     def ordered_promos(self, field='order'):
         now = timezone.now()
         qs = self.promos.filter(
+            published=True,
+            date_available__lte=now,
             promoboxpromos_promos__date_available__lte=now
         ).filter(
             models.Q(promoboxpromos_promos__date_end__gte=now) |
             models.Q(promoboxpromos_promos__date_end__isnull=True)
         )
-        return qs.order_by('promoboxpromos_promos__order')
+        return qs.order_by('promoboxpromos_promos__order').distinct()
 
 
 class PromoBoxPromos(models.Model):
