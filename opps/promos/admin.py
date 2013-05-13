@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-
+from django.utils import timezone
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -100,7 +100,7 @@ class PromoBoxPromosInline(admin.TabularInline):
     extra = 1
     fieldsets = [(None, {
         'classes': ('collapse',),
-        'fields': ('promo', 'order')})]
+        'fields': ('promo', 'order', 'date_available', 'date_end')})]
 
 
 class PromoBoxAdmin(PublishableAdmin):
@@ -120,6 +120,18 @@ class PromoBoxAdmin(PublishableAdmin):
             'classes': ('extrapretty'),
             'fields': ('published', 'date_available')}),
     )
+
+    def clean_ended_entries(self, request, queryset):
+        now = timezone.now()
+        for box in queryset:
+            ended = box.promoboxpromos_promoboxes.filter(
+                date_end__lt=now
+            )
+            if ended:
+                ended.delete()
+    clean_ended_entries.short_description = _(u'Clean ended promos')
+
+    actions = ('clean_ended_entries',)
 
 
 class PromoConfigAdmin(PublishableAdmin):
