@@ -11,6 +11,7 @@ from .models import (Promo, Answer, PromoPost, PromoBox,
 
 from opps.core.admin import PublishableAdmin
 from opps.core.admin import apply_opps_rules
+from opps.images.generate import image_url
 
 
 class PromoAdminForm(forms.ModelForm):
@@ -51,7 +52,7 @@ class PromoAdmin(PublishableAdmin):
 
         (_(u'Content'), {
             'classes': ('extrapretty'),
-            'fields': ('main_image', 'banner', 'tags')}),
+            'fields': (('main_image', 'image_thumb'), ('banner', 'banner_thumb'), 'tags')}),
 
         (_(u'Headline'), {
             'classes': ('extrapretty'),
@@ -82,6 +83,24 @@ class PromoAdmin(PublishableAdmin):
             'classes': ('extrapretty'),
             'fields': ('result', 'display_winners')}),
     )
+
+    readonly_fields = ['image_thumb', 'banner_thumb']
+
+    def image_thumb(self, obj):
+        if obj.main_image:
+            return u'<img width="60px" height="60px" src="{0}" />'.format(
+                image_url(obj.main_image.image.url, width=60, height=60))
+        return _(u'No Image')
+    image_thumb.short_description = _(u'Thumbnail')
+    image_thumb.allow_tags = True
+
+    def banner_thumb(self, obj):
+        if obj.banner:
+            return u'<img width="60px" height="60px" src="{0}" />'.format(
+                image_url(obj.banner.image.url, width=60, height=60))
+        return _(u'No Image')
+    banner_thumb.short_description = _(u'Thumbnail')
+    banner_thumb.allow_tags = True
 
 
 @apply_opps_rules('promos')
