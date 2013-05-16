@@ -23,14 +23,20 @@ if not 'endless_pagination' in settings.INSTALLED_APPS:
 
 # TODO: Delay it on Celery
 def send_confirmation_email(subject, obj, user):
+
+    DEFAULT_TXT = _(
+        u"Thank you! "
+        u"You are now inscribed to {obj.title}"
+    ).format(obj=obj)
+
     msg = EmailMultiAlternatives(
         subject,
-        obj.confirmation_email_txt,
-        obj.confirmation_email_address,
+        obj.confirmation_email_txt or DEFAULT_TXT,
+        obj.confirmation_email_address or settings.DEFAULT_FROM_EMAIL,
         [user.email]
     )
     msg.attach_alternative(
-        obj.confirmation_email_html,
+        obj.confirmation_email_html or DEFAULT_TXT,
         'text/html'
     )
     return msg.send()
