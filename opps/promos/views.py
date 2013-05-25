@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.core.mail import EmailMultiAlternatives
+from django.contrib.sites.models import get_current_site
 
 
 from opps.channels.models import Channel
@@ -134,13 +135,13 @@ class PromoDetail(DetailView):
         return names
 
     def get_object(self):
-        self.voted = False
-        return get_object_or_404(
-            Promo,
-            slug=self.kwargs['slug'],
-            published=True,
-            date_available__lte=timezone.now()
-        )
+        self.site = get_current_site(self.request)
+        filters = dict(slug=self.kwargs['slug'], site=self.site)
+        preview_enabled = self.request.user and self.request.user.is_staff
+        if not preview_enabled:
+            filters['date_available__lte'] = timezone.now()
+            filters['published'] = True
+        return get_object_or_404(Promo, **filters)
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()

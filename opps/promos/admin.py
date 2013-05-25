@@ -39,7 +39,8 @@ class PromoPostInline(admin.TabularInline):
 class PromoAdmin(PublishableAdmin):
     form = PromoAdminForm
     prepopulated_fields = {"slug": ["title"]}
-    list_display = ['title', 'channel', 'date_available', 'date_end', 'published']
+    list_display = ['title', 'channel', 'date_available',
+                    'date_end', 'published', 'preview_url']
     list_filter = ["date_end", "date_available", "published", "channel"]
     search_fields = ["title", "headline", "description"]
     exclude = ('user',)
@@ -85,14 +86,6 @@ class PromoAdmin(PublishableAdmin):
     )
 
     readonly_fields = ['image_thumb', 'banner_thumb']
-
-    def image_thumb(self, obj):
-        if obj.main_image:
-            return u'<img width="60px" height="60px" src="{0}" />'.format(
-                image_url(obj.main_image.image.url, width=60, height=60))
-        return _(u'No Image')
-    image_thumb.short_description = _(u'Thumbnail')
-    image_thumb.allow_tags = True
 
     def banner_thumb(self, obj):
         if obj.banner:
