@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-
+from django.utils import timezone
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -11,6 +11,7 @@ from .models import (Promo, Answer, PromoPost, PromoBox,
 
 from opps.core.admin import PublishableAdmin
 from opps.core.admin import apply_opps_rules
+from opps.images.generate import image_url
 
 
 class PromoAdminForm(forms.ModelForm):
@@ -38,7 +39,8 @@ class PromoPostInline(admin.TabularInline):
 class PromoAdmin(PublishableAdmin):
     form = PromoAdminForm
     prepopulated_fields = {"slug": ["title"]}
-    list_display = ['title', 'channel', 'date_available', 'date_end', 'published']
+    list_display = ['title', 'channel', 'date_available',
+                    'date_end', 'published', 'preview_url']
     list_filter = ["date_end", "date_available", "published", "channel"]
     search_fields = ["title", "headline", "description"]
     exclude = ('user',)
@@ -51,7 +53,7 @@ class PromoAdmin(PublishableAdmin):
 
         (_(u'Content'), {
             'classes': ('extrapretty'),
-            'fields': ('main_image', 'banner', 'tags')}),
+            'fields': (('main_image', 'image_thumb'), ('banner', 'banner_thumb'), 'tags')}),
 
         (_(u'Headline'), {
             'classes': ('extrapretty'),
@@ -83,6 +85,16 @@ class PromoAdmin(PublishableAdmin):
             'fields': ('result', 'display_winners')}),
     )
 
+    readonly_fields = ['image_thumb', 'banner_thumb']
+
+    def banner_thumb(self, obj):
+        if obj.banner:
+            return u'<img width="60px" height="60px" src="{0}" />'.format(
+                image_url(obj.banner.image.url, width=60, height=60))
+        return _(u'No Image')
+    banner_thumb.short_description = _(u'Thumbnail')
+    banner_thumb.allow_tags = True
+
 
 @apply_opps_rules('promos')
 class AnswerAdmin(admin.ModelAdmin):
@@ -100,7 +112,7 @@ class PromoBoxPromosInline(admin.TabularInline):
     extra = 1
     fieldsets = [(None, {
         'classes': ('collapse',),
-        'fields': ('promo', 'order')})]
+        'fields': ('promo', 'order', 'date_available', 'date_end')})]
 
 
 class PromoBoxAdmin(PublishableAdmin):
@@ -120,6 +132,18 @@ class PromoBoxAdmin(PublishableAdmin):
             'classes': ('extrapretty'),
             'fields': ('published', 'date_available')}),
     )
+
+    def clean_ended_entries(self, request, queryset):
+        now = timezone.now()
+        for box in queryset:
+            ended = box.promoboxpromos_promoboxes.filter(
+                date_end__lt=now
+            )
+            if ended:
+                ended.delete()
+    clean_ended_entries.short_description = _(u'Clean ended promos')
+
+    actions = ('clean_ended_entries',)
 
 
 class PromoConfigAdmin(PublishableAdmin):

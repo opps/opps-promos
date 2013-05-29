@@ -116,6 +116,7 @@ class Promo(Publishable, Slugged):
 
     class Meta:
         ordering = ['order']
+        unique_together = ['site', 'slug']
 
     def get_absolute_url(self):
         return reverse(
@@ -192,6 +193,18 @@ class PromoBox(BaseBox):
         through='promos.PromoBoxPromos'
     )
 
+    def ordered_promos(self, field='order'):
+        now = timezone.now()
+        qs = self.promos.filter(
+            published=True,
+            date_available__lte=now,
+            promoboxpromos_promos__date_available__lte=now
+        ).filter(
+            models.Q(promoboxpromos_promos__date_end__gte=now) |
+            models.Q(promoboxpromos_promos__date_end__isnull=True)
+        )
+        return qs.order_by('promoboxpromos_promos__order').distinct()
+
 
 class PromoBoxPromos(models.Model):
     promobox = models.ForeignKey(
@@ -209,6 +222,14 @@ class PromoBoxPromos(models.Model):
         verbose_name=_(u'Promo'),
     )
     order = models.PositiveIntegerField(_(u'Order'), default=0)
+    date_available = models.DateTimeField(_(u"Date available"),
+                                          default=timezone.now, null=True)
+    date_end = models.DateTimeField(_(u"End date"), null=True, blank=True)
+
+    class Meta:
+        ordering = ('order',)
+        verbose_name = _('Promo box promos')
+        verbose_name_plural = _('Promo boxes promos')
 
     def __unicode__(self):
         return u"{0}-{1}".format(self.promobox.slug, self.promo.slug)
@@ -217,9 +238,6 @@ class PromoBoxPromos(models.Model):
 
         if not self.promo.published:
             raise ValidationError(_(u'Promo not published!'))
-
-        if not self.promo.date_available <= timezone.now():
-            raise ValidationError(_(u'Promo date_available is greater than today!'))
 
 
 class PromoConfig(BaseConfig):
