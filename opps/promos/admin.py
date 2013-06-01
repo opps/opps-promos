@@ -26,6 +26,7 @@ class PromoAdminForm(forms.ModelForm):
         }
 
 
+@apply_opps_rules('promos')
 class PromoPostInline(admin.TabularInline):
     model = PromoPost
     fk_name = 'promo'
@@ -104,17 +105,20 @@ class AnswerAdmin(admin.ModelAdmin):
     raw_id_fields = ['promo', 'user']
 
 
+@apply_opps_rules('promos')
 class PromoBoxPromosInline(admin.TabularInline):
     model = PromoBoxPromos
     fk_name = 'promobox'
     raw_id_fields = ['promo']
     actions = None
     extra = 1
+    ordering = ('order',)
     fieldsets = [(None, {
         'classes': ('collapse',),
         'fields': ('promo', 'order', 'date_available', 'date_end')})]
 
 
+@apply_opps_rules('promos')
 class PromoBoxAdmin(PublishableAdmin):
     prepopulated_fields = {"slug": ["name"]}
     list_display = ['name', 'date_available', 'published']
