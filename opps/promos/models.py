@@ -18,6 +18,7 @@ from opps.channels.models import Channel
 from opps.articles.models import Post
 from opps.core.models import Slugged
 from opps.images.models import Image
+from opps.images.generate import image_url
 
 app_namespace = getattr(settings, 'OPPS_PROMOS_URL_NAMESPACE', 'promos')
 
@@ -34,6 +35,17 @@ class PromoManager(PublishableManager):
 
 
 class Promo(Publishable, Slugged):
+
+    FORM_TYPES = (
+        ("text", _(u"Text only")),
+        ("upload", _(u"Upload only")),
+        ("url", _(u"Url only")),
+
+        ("text|upload", _(u"Text and Upload")),
+        ("text|url", _(u"Text and Url")),
+        ("text|url|upload", _(u"Text, Url and Upload")),
+    )
+
     title = models.CharField(_(u"Title"), max_length=255)
     headline = models.TextField(_(u"Headline"), blank=True)
     description = models.TextField(_(u"Description"), blank=True)
@@ -60,8 +72,15 @@ class Promo(Publishable, Slugged):
     date_end = models.DateTimeField(_(u"End date"), null=True, blank=True)
     order = models.IntegerField(_(u"Order"), default=0)
 
-    has_upload = models.BooleanField(_(u"Has file upload?"), default=False)
-    has_urlfield = models.BooleanField(_(u"Has url field?"), default=False)
+    # has_upload = models.BooleanField(_(u"Has file upload?"), default=False)
+    # has_urlfield = models.BooleanField(_(u"Has url field?"), default=False)
+
+    form_type = models.CharField(
+        _(u"Form type"),
+        max_length=20,
+        choices=FORM_TYPES,
+        default="text"
+    )
 
     display_answers = models.BooleanField(_(u"Display answers?"), default=True)
     display_winners = models.BooleanField(_(u"Display winners?"), default=False)
@@ -84,6 +103,24 @@ class Promo(Publishable, Slugged):
         null=True,
         blank=True
     )
+
+    def get_form_type(self):
+        try:
+            return self.form_type.split('|')
+        except:
+            return [self.form_type]
+
+    @property
+    def has_upload(self):
+        return 'upload' in self.get_form_type()
+
+    @property
+    def has_urlfield(self):
+        return 'url' in self.get_form_type()
+
+    @property
+    def has_textfield(self):
+        return 'text' in self.get_form_type()
 
     @property
     def is_opened(self):
@@ -168,6 +205,11 @@ class Answer(models.Model):
     answer = models.TextField(_(u"Answer"), blank=True, null=True)
     answer_url = models.URLField(_(u"Answer URL"), blank=True, null=True)
     answer_file = models.FileField(upload_to=get_file_path, blank=True, null=True)
+    publish_file = models.BooleanField(
+        _(u"Publish file?"),
+        default=False,
+        help_text=_(u'Show image thumbnail if image, or link if another type of file')
+    )
     published = models.BooleanField(_(u"Published"), default=True)
     date_insert = models.DateTimeField(_(u"Date insert"), auto_now_add=True)
     date_update = models.DateTimeField(_(u"Date update"), auto_now=True)
@@ -182,6 +224,26 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return u"{0}-{1}".format(self.promo.slug, self.answer)
+
+    def get_file_display(self):
+        try:
+            imgs = ['jpg', 'png', 'jpeg', 'bmp', 'gif']
+            if self.filename.split('.')[-1] in imgs:
+                # return ("IMAGE:<img src=>")
+                return u'<img width="100px" height="100px" src="{0}" />'.format(
+                    image_url(self.answer_file.url, width=100, height=100)
+                )
+            else:
+                return u'<a href="{0}" target="_blank">{1}</a>'.format(
+                    self.answer_file.url,
+                    self.filename
+                )
+        except:
+            return _(u"No file")
+
+    @property
+    def show_file(self):
+        return self.answer_file and self.publish_file
 
 
 class PromoBox(BaseBox):

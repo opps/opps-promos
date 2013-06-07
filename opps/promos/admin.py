@@ -74,7 +74,7 @@ class PromoAdmin(PublishableAdmin):
         (_(u'Publication'), {
             'classes': ('extrapretty'),
             'fields': ('published', ('date_available', 'date_end'),
-                       'order', 'has_upload', 'has_urlfield',
+                       'order', 'form_type',
                        'display_answers')}),
 
         (_(u'Participation'), {
@@ -99,10 +99,16 @@ class PromoAdmin(PublishableAdmin):
 
 @apply_opps_rules('promos')
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ['promo', 'user', 'date_insert', 'published', 'is_winner']
+    list_display = ['promo', 'user', 'date_insert',
+                    'published', 'is_winner', 'image_thumb']
     list_filter = ["promo", "date_insert", "published", 'is_winner']
     search_fields = ["answer", "answer_url", "user"]
     raw_id_fields = ['promo', 'user']
+
+    def image_thumb(self, obj):
+        return obj.get_file_display()
+    image_thumb.short_description = _(u'Upload')
+    image_thumb.allow_tags = True
 
 
 @apply_opps_rules('promos')

@@ -46,26 +46,28 @@
 
     <form method="post" {% if promo.has_upload %} enctype="multipart/form-data" {% endif %}>
         {% csrf_token %}
+        {% if promo.has_textfield %}
         <div>
             <label for="answer"> Your answer </label><br />
-            <textarea id="answer" name="answer"></textarea>
+            <textarea id="answer" name="answer" required></textarea>
         </div>
+        {% endif %}
 
         {% if promo.has_upload %}
         <div>
             <label for="answer"> Upload a file </label><br />
-            <input type="file" name="answer_file" id="answer_file" />
+            <input type="file" name="answer_file" id="answer_file" required />
         </div>
         {% endif %}
 
         {% if promo.has_urlfield %}
         <div>
             <label for="answer"> Inform the media URL i.e: youtube.com/xxx </label><br />
-            <input type="text" name="answer_url" id="answer_url" />
+            <input type="text" name="answer_url" id="answer_url" required />
         </div>
         {% endif %}
         <div>
-            <input type="checkbox" name="agree" value="1" id="agree" required>
+            <input type="checkbox" name="agree" value="1" id="agree" required />
             <label for="agree">I agree with terms.</label>
        </div>
 
