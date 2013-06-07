@@ -154,6 +154,8 @@ class Promo(Publishable, Slugged):
     class Meta:
         ordering = ['order']
         unique_together = ['site', 'slug']
+        verbose_name = _(u'Promo')
+        verbose_name_plural = _(u'Promos')
 
     def get_absolute_url(self):
         return reverse(
@@ -191,6 +193,11 @@ class PromoPost(models.Model):
         return u"{0}-{1}".format(self.promo.slug, self.post.slug)
 
 
+    class Meta:
+        verbose_name = _(u'Promo Post')
+        verbose_name_plural = _(u'Promos Posts')
+
+
 def get_file_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = "{0}-{1}.{2}".format(uuid.uuid4(), instance.promo.slug, ext)
@@ -217,6 +224,9 @@ class Answer(models.Model):
 
     class Meta:
         ordering = ['-date_insert']
+        verbose_name = _(u'Answer')
+        verbose_name_plural = _(u'Answers')
+
 
     @property
     def filename(self):
@@ -267,6 +277,10 @@ class PromoBox(BaseBox):
         )
         return qs.order_by('promoboxpromos_promos__order').distinct()
 
+    class Meta:
+        verbose_name =  _(u'Promo Box')
+        verbose_name_plural = _(u'Promo Boxes')
+
 
 class PromoBoxPromos(models.Model):
     promobox = models.ForeignKey(
@@ -314,4 +328,7 @@ class PromoConfig(BaseConfig):
 
     class Meta:
         permissions = (("developer", "Developer"),)
-        unique_together = ("key_group", "key", "site", "channel", "article", "promo")
+        unique_together = ("key_group", "key", "site", "channel", "article",
+                           "promo")
+        verbose_name = _(u'Promo Config')
+        verbose_name_plural = _(u'Promo Configs')
