@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-07 19:26-0300\n"
+"POT-Creation-Date: 2013-06-12 11:23-0300\n"
 "PO-Revision-Date: 2013-04-26 18:13+0000\n"
 "Last-Translator: josene <jsene@yacows.com.br>\n"
 "Language-Team: Portuguese (Brazil) <opps-developers@googlegroups.com>\n"
@@ -63,39 +63,39 @@ msgstr "Sem Imagem"
 
 #: admin.py:96
 msgid "Thumbnail"
-msgstr ""
+msgstr "Miniatura"
 
 #: admin.py:110
 msgid "Upload"
-msgstr ""
+msgstr "Upload"
 
 #: admin.py:154
 msgid "Clean ended promos"
-msgstr ""
+msgstr "Promoções finalizadas"
 
 #: models.py:40
 msgid "Text only"
-msgstr ""
+msgstr "Apenas texto"
 
 #: models.py:41
 msgid "Upload only"
-msgstr ""
+msgstr "Apenas upload"
 
 #: models.py:42
 msgid "Url only"
-msgstr ""
+msgstr "Apenas URL"
 
 #: models.py:44
 msgid "Text and Upload"
-msgstr ""
+msgstr "Texto e upload"
 
 #: models.py:45
 msgid "Text and Url"
-msgstr ""
+msgstr "Texto e URL"
 
 #: models.py:46
 msgid "Text, Url and Upload"
-msgstr ""
+msgstr "Texto, URL e Upload"
 
 #: models.py:49
 msgid "Title"
@@ -113,17 +113,17 @@ msgstr "Banner da promoção"
 msgid "300 x 498 banner image"
 msgstr "Imagem de banner 300 x 498"
 
-#: models.py:72 models.py:303
+#: models.py:72 models.py:304
 msgid "End date"
 msgstr "Data de finalização"
 
-#: models.py:73 models.py:300
+#: models.py:73 models.py:301
 msgid "Order"
 msgstr "Ordem"
 
 #: models.py:79
 msgid "Form type"
-msgstr ""
+msgstr "Tipo de form"
 
 #: models.py:85
 msgid "Display answers?"
@@ -149,11 +149,11 @@ msgstr "E-mail de confirmação (HTML)"
 msgid "Email"
 msgstr "E-mail"
 
-#: models.py:157 models.py:171 models.py:185 models.py:298 models.py:326
+#: models.py:157 models.py:171 models.py:185 models.py:299 models.py:327
 msgid "Promo"
 msgstr "Promoção"
 
-#: models.py:158
+#: models.py:158 models.py:266
 msgid "Promos"
 msgstr "Promoções"
 
@@ -180,6 +180,8 @@ msgstr "Publicar Arquivo?"
 #: models.py:218
 msgid "Show image thumbnail if image, or link if another type of file"
 msgstr ""
+"Mostra miniatura da imagem se arquivo for uma imagem ou um link caso seja de "
+"outro tipo"
 
 #: models.py:220
 msgid "Published"
@@ -203,43 +205,43 @@ msgstr "Respostas"
 
 #: models.py:252
 msgid "No file"
-msgstr ""
+msgstr "Sem arquivo"
 
-#: models.py:281 models.py:291
+#: models.py:282 models.py:292
 msgid "Promo Box"
 msgstr "Box de promoção"
 
-#: models.py:282
+#: models.py:283
 msgid "Promo Boxes"
 msgstr "Boxes de promoção"
 
-#: models.py:301
+#: models.py:302
 msgid "Date available"
-msgstr ""
-
-#: models.py:307
-msgid "Promo box promos"
-msgstr "Boxes de promoção"
+msgstr "Data de publicação"
 
 #: models.py:308
-msgid "Promo boxes promos"
-msgstr ""
+msgid "Promo box promos"
+msgstr "Box de promoção"
 
-#: models.py:316
+#: models.py:309
+msgid "Promo boxes promos"
+msgstr "Boxes de Promoções"
+
+#: models.py:317
 msgid "Promo not published!"
 msgstr "Promoção não publicada!"
 
-#: models.py:333
+#: models.py:334
 msgid "Promo Config"
 msgstr "Config de Box de promoção"
 
-#: models.py:334
+#: models.py:335
 msgid "Promo Configs"
 msgstr "Configs de Post de promoção"
 
 #: views.py:29
 msgid "Thank you! You are now inscribed to {obj.title}"
-msgstr ""
+msgstr "Obrigado! Você agora está inscrito em {obj.title}"
 
 #: views.py:171
 msgid "Promo not opened"

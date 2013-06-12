@@ -262,7 +262,8 @@ class PromoBox(BaseBox):
         'promos.Promo',
         null=True, blank=True,
         related_name='promobox_promos',
-        through='promos.PromoBoxPromos'
+        through='promos.PromoBoxPromos',
+        verbose_name =_(u'Promos')
     )
 
     def ordered_promos(self, field='order'):
