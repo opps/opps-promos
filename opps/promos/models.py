@@ -53,7 +53,8 @@ class Promo(Publishable, Slugged):
     rules = models.TextField(_(u'Rules'), blank=True)
     result = models.TextField(_(u'Result'), blank=True)
 
-    channel = models.ForeignKey(Channel, null=True, blank=True,
+    channel = models.ForeignKey(Channel, verbose_name=_(u'Channel'),
+                                null=True, blank=True,
                                 on_delete=models.SET_NULL)
     posts = models.ManyToManyField(Post, null=True, blank=True,
                                    related_name='promo_post',
@@ -154,6 +155,8 @@ class Promo(Publishable, Slugged):
     class Meta:
         ordering = ['order']
         unique_together = ['site', 'slug']
+        verbose_name = _(u'Promo')
+        verbose_name_plural = _(u'Promos')
 
     def get_absolute_url(self):
         return reverse(
@@ -191,6 +194,11 @@ class PromoPost(models.Model):
         return u"{0}-{1}".format(self.promo.slug, self.post.slug)
 
 
+    class Meta:
+        verbose_name = _(u'Promo Post')
+        verbose_name_plural = _(u'Promos Posts')
+
+
 def get_file_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = "{0}-{1}.{2}".format(uuid.uuid4(), instance.promo.slug, ext)
@@ -200,11 +208,14 @@ def get_file_path(instance, filename):
 
 
 class Answer(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    promo = models.ForeignKey(Promo)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             verbose_name=_(u'User'))
+    promo = models.ForeignKey(Promo, verbose_name=_(u'Promo'))
     answer = models.TextField(_(u"Answer"), blank=True, null=True)
     answer_url = models.URLField(_(u"Answer URL"), blank=True, null=True)
-    answer_file = models.FileField(upload_to=get_file_path, blank=True, null=True)
+    answer_file = models.FileField(upload_to=get_file_path,
+                                   verbose_name=_(u'Answer File'), blank=True,
+                                   null=True)
     publish_file = models.BooleanField(
         _(u"Publish file?"),
         default=False,
@@ -217,6 +228,9 @@ class Answer(models.Model):
 
     class Meta:
         ordering = ['-date_insert']
+        verbose_name = _(u'Answer')
+        verbose_name_plural = _(u'Answers')
+
 
     @property
     def filename(self):
@@ -252,7 +266,8 @@ class PromoBox(BaseBox):
         'promos.Promo',
         null=True, blank=True,
         related_name='promobox_promos',
-        through='promos.PromoBoxPromos'
+        through='promos.PromoBoxPromos',
+        verbose_name =_(u'Promos')
     )
 
     def ordered_promos(self, field='order'):
@@ -266,6 +281,10 @@ class PromoBox(BaseBox):
             models.Q(promoboxpromos_promos__date_end__isnull=True)
         )
         return qs.order_by('promoboxpromos_promos__order').distinct()
+
+    class Meta:
+        verbose_name =  _(u'Promo Box')
+        verbose_name_plural = _(u'Promo Boxes')
 
 
 class PromoBoxPromos(models.Model):
@@ -314,4 +333,7 @@ class PromoConfig(BaseConfig):
 
     class Meta:
         permissions = (("developer", "Developer"),)
-        unique_together = ("key_group", "key", "site", "channel", "article", "promo")
+        unique_together = ("key_group", "key", "site", "channel", "article",
+                           "promo")
+        verbose_name = _(u'Promo Config')
+        verbose_name_plural = _(u'Promo Configs')

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Andre Melo <algmelo@gmail.com>, 2013
 # Ellison Leão <ellisonleao@gmail.com>, 2013
@@ -11,173 +11,280 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-18 11:58-0300\n"
+"POT-Creation-Date: 2013-06-12 11:34-0300\n"
 "PO-Revision-Date: 2013-04-26 18:13+0000\n"
 "Last-Translator: josene <jsene@yacows.com.br>\n"
 "Language-Team: Portuguese (Brazil) <opps-developers@googlegroups.com>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: admin.py:46 admin.py:111
+#: admin.py:52 admin.py:137
 msgid "Identification"
 msgstr "Identificação"
 
-#: admin.py:49
+#: admin.py:55
 msgid "Content"
 msgstr "Conteúdo"
 
-#: admin.py:53 models.py:37
+#: admin.py:59 models.py:50
 msgid "Headline"
 msgstr "Cabeçalho"
 
-#: admin.py:57 models.py:38
+#: admin.py:63 models.py:51
 msgid "Description"
 msgstr "Descrição"
 
-#: admin.py:61 models.py:40
+#: admin.py:67 models.py:53
 msgid "Rules"
 msgstr "Regras"
 
-#: admin.py:65 admin.py:113
+#: admin.py:71 admin.py:139
 msgid "Relationships"
 msgstr "Relacionamentos"
 
-#: admin.py:68 admin.py:115
+#: admin.py:74 admin.py:141
 msgid "Publication"
 msgstr "Publicação"
 
-#: admin.py:74
+#: admin.py:80
 msgid "Participation"
 msgstr "Participação"
 
-#: admin.py:78 models.py:41
+#: admin.py:84 models.py:54
 msgid "Result"
 msgstr "Resultado"
 
-#: models.py:33
+#: admin.py:95
+msgid "No Image"
+msgstr "Sem Imagem"
+
+#: admin.py:96
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+#: admin.py:110
+msgid "Upload"
+msgstr "Upload"
+
+#: admin.py:154
+msgid "Clean ended promos"
+msgstr "Promoções finalizadas"
+
+#: models.py:40
+msgid "Text only"
+msgstr "Apenas texto"
+
+#: models.py:41
+msgid "Upload only"
+msgstr "Apenas upload"
+
+#: models.py:42
+msgid "Url only"
+msgstr "Apenas URL"
+
+#: models.py:44
+msgid "Text and Upload"
+msgstr "Texto e upload"
+
+#: models.py:45
+msgid "Text and Url"
+msgstr "Texto e URL"
+
+#: models.py:46
+msgid "Text, Url and Upload"
+msgstr "Texto, URL e Upload"
+
+#: models.py:49
 msgid "Title"
 msgstr "Título"
 
-#: models.py:34
-msgid "URL"
-msgstr "URL"
+#: models.py:56
+msgid "Channel"
+msgstr "Canal"
 
-#: models.py:50
+#: models.py:64
 msgid "Promo Image"
 msgstr "Imagem da promoção"
 
-#: models.py:54
+#: models.py:68
 msgid "Promo Banner"
 msgstr "Banner da promoção"
 
-#: models.py:57
+#: models.py:71
 msgid "300 x 498 banner image"
 msgstr "Imagem de banner 300 x 498"
 
-#: models.py:59
+#: models.py:73 models.py:308
 msgid "End date"
 msgstr "Data de finalização"
 
-#: models.py:60 models.py:197
+#: models.py:74 models.py:305
 msgid "Order"
 msgstr "Ordem"
 
-#: models.py:62
-msgid "Has file upload?"
-msgstr "Habilitar upload de arquivo?"
+#: models.py:80
+msgid "Form type"
+msgstr "Tipo de form"
 
-#: models.py:63
-msgid "Has url field?"
-msgstr "Habilitar campo de URL?"
-
-#: models.py:65
+#: models.py:86
 msgid "Display answers?"
 msgstr "Mostrar perguntas?"
 
-#: models.py:66
+#: models.py:87
 msgid "Display winners?"
 msgstr "Mostrar vencedores?"
 
-#: models.py:69
+#: models.py:90
 msgid "Send confirmation email?"
 msgstr "Enviar e-mail de confirmação?"
 
-#: models.py:73
+#: models.py:94
 msgid "Confirmation email (Text)"
 msgstr "E-mail de confirmação (texto puro)"
 
-#: models.py:77
+#: models.py:98
 msgid "Confirmation email (HTML)"
 msgstr "E-mail de confirmação (HTML)"
 
-#: models.py:81
+#: models.py:102
 msgid "Email"
 msgstr "E-mail"
 
-#: models.py:123
-msgid "Promo Post"
-msgstr "Post de promoção"
-
-#: models.py:131 models.py:195 models.py:218
+#: models.py:158 models.py:172 models.py:186 models.py:213 models.py:303
+#: models.py:331
 msgid "Promo"
 msgstr "Promoção"
 
-#: models.py:153
+#: models.py:159 models.py:270
+msgid "Promos"
+msgstr "Promoções"
+
+#: models.py:178 models.py:198
+msgid "Promo Post"
+msgstr "Post de promoção"
+
+#: models.py:199
+msgid "Promos Posts"
+msgstr "Posts de promoção"
+
+#: models.py:212
+msgid "User"
+msgstr "Usuário"
+
+#: models.py:214 models.py:231
 msgid "Answer"
 msgstr "Resposta"
 
-#: models.py:154
+#: models.py:215
 msgid "Answer URL"
 msgstr "URL da resposta"
 
-#: models.py:156
+#: models.py:217
+msgid "Answer File"
+msgstr "Arquivo da resposta"
+
+#: models.py:220
+msgid "Publish file?"
+msgstr "Publicar Arquivo?"
+
+#: models.py:222
+msgid "Show image thumbnail if image, or link if another type of file"
+msgstr ""
+"Mostra miniatura da imagem se arquivo for uma imagem ou um link caso seja de "
+"outro tipo"
+
+#: models.py:224
 msgid "Published"
 msgstr "Publicado"
 
-#: models.py:157
+#: models.py:225
 msgid "Date insert"
 msgstr "Data de inserção"
 
-#: models.py:158
+#: models.py:226
 msgid "Date update"
 msgstr "Data de atualização"
 
-#: models.py:159
+#: models.py:227
 msgid "Is winner?"
 msgstr "É ganhador?"
 
-#: models.py:188
+#: models.py:232
+msgid "Answers"
+msgstr "Respostas"
+
+#: models.py:256
+msgid "No file"
+msgstr "Sem arquivo"
+
+#: models.py:286 models.py:296
 msgid "Promo Box"
 msgstr "Box de promoção"
 
-#: models.py:205
+#: models.py:287
+msgid "Promo Boxes"
+msgstr "Boxes de promoção"
+
+#: models.py:306
+msgid "Date available"
+msgstr "Data de publicação"
+
+#: models.py:312
+msgid "Promo box promos"
+msgstr "Box de promoção"
+
+#: models.py:313
+msgid "Promo boxes promos"
+msgstr "Boxes de Promoções"
+
+#: models.py:321
 msgid "Promo not published!"
 msgstr "Promoção não publicada!"
 
-#: models.py:208
-msgid "Promo date_available is greater than today!"
-msgstr "Data de publicação da promoção é maior do que a data atual"
+#: models.py:338
+msgid "Promo Config"
+msgstr "Config de Box de promoção"
 
-#: views.py:161
+#: models.py:339
+msgid "Promo Configs"
+msgstr "Configs de Post de promoção"
+
+#: views.py:29
+msgid "Thank you! You are now inscribed to {obj.title}"
+msgstr "Obrigado! Você agora está inscrito em {obj.title}"
+
+#: views.py:171
 msgid "Promo not opened"
 msgstr "Promoção não aberta"
 
-#: views.py:166
+#: views.py:176
 msgid " You already answered this promo"
 msgstr "Você já respondeu a esta promoção"
 
-#: views.py:178
+#: views.py:188
 msgid " You have to agree with the rules"
 msgstr "Você tem que concordar com as regras"
 
-#: views.py:187
+#: views.py:197
 msgid " You have to fill the form"
 msgstr "Você tem que preencher o formulário"
 
-#: views.py:201
+#: views.py:211
 #, python-format
 msgid "You are now registered for %s."
 msgstr "Você está agora registrado por %s."
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#~ msgid "Has file upload?"
+#~ msgstr "Habilitar upload de arquivo?"
+
+#~ msgid "Has url field?"
+#~ msgstr "Habilitar campo de URL?"
+
+#~ msgid "Promo date_available is greater than today!"
+#~ msgstr "Data de publicação da promoção é maior do que a data atual"
