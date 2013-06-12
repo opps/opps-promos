@@ -53,7 +53,8 @@ class Promo(Publishable, Slugged):
     rules = models.TextField(_(u'Rules'), blank=True)
     result = models.TextField(_(u'Result'), blank=True)
 
-    channel = models.ForeignKey(Channel, null=True, blank=True,
+    channel = models.ForeignKey(Channel, verbose_name=_(u'Channel'),
+                                null=True, blank=True,
                                 on_delete=models.SET_NULL)
     posts = models.ManyToManyField(Post, null=True, blank=True,
                                    related_name='promo_post',
@@ -207,11 +208,14 @@ def get_file_path(instance, filename):
 
 
 class Answer(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    promo = models.ForeignKey(Promo)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             verbose_name=_(u'User'))
+    promo = models.ForeignKey(Promo, verbose_name=_(u'Promo'))
     answer = models.TextField(_(u"Answer"), blank=True, null=True)
     answer_url = models.URLField(_(u"Answer URL"), blank=True, null=True)
-    answer_file = models.FileField(upload_to=get_file_path, blank=True, null=True)
+    answer_file = models.FileField(upload_to=get_file_path,
+                                   verbose_name=_(u'Answer File'), blank=True,
+                                   null=True)
     publish_file = models.BooleanField(
         _(u"Publish file?"),
         default=False,

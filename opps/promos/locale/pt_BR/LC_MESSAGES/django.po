@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-12 11:23-0300\n"
+"POT-Creation-Date: 2013-06-12 11:34-0300\n"
 "PO-Revision-Date: 2013-04-26 18:13+0000\n"
 "Last-Translator: josene <jsene@yacows.com.br>\n"
 "Language-Team: Portuguese (Brazil) <opps-developers@googlegroups.com>\n"
@@ -101,141 +101,154 @@ msgstr "Texto, URL e Upload"
 msgid "Title"
 msgstr "Título"
 
-#: models.py:63
+#: models.py:56
+msgid "Channel"
+msgstr "Canal"
+
+#: models.py:64
 msgid "Promo Image"
 msgstr "Imagem da promoção"
 
-#: models.py:67
+#: models.py:68
 msgid "Promo Banner"
 msgstr "Banner da promoção"
 
-#: models.py:70
+#: models.py:71
 msgid "300 x 498 banner image"
 msgstr "Imagem de banner 300 x 498"
 
-#: models.py:72 models.py:304
+#: models.py:73 models.py:308
 msgid "End date"
 msgstr "Data de finalização"
 
-#: models.py:73 models.py:301
+#: models.py:74 models.py:305
 msgid "Order"
 msgstr "Ordem"
 
-#: models.py:79
+#: models.py:80
 msgid "Form type"
 msgstr "Tipo de form"
 
-#: models.py:85
+#: models.py:86
 msgid "Display answers?"
 msgstr "Mostrar perguntas?"
 
-#: models.py:86
+#: models.py:87
 msgid "Display winners?"
 msgstr "Mostrar vencedores?"
 
-#: models.py:89
+#: models.py:90
 msgid "Send confirmation email?"
 msgstr "Enviar e-mail de confirmação?"
 
-#: models.py:93
+#: models.py:94
 msgid "Confirmation email (Text)"
 msgstr "E-mail de confirmação (texto puro)"
 
-#: models.py:97
+#: models.py:98
 msgid "Confirmation email (HTML)"
 msgstr "E-mail de confirmação (HTML)"
 
-#: models.py:101
+#: models.py:102
 msgid "Email"
 msgstr "E-mail"
 
-#: models.py:157 models.py:171 models.py:185 models.py:299 models.py:327
+#: models.py:158 models.py:172 models.py:186 models.py:213 models.py:303
+#: models.py:331
 msgid "Promo"
 msgstr "Promoção"
 
-#: models.py:158 models.py:266
+#: models.py:159 models.py:270
 msgid "Promos"
 msgstr "Promoções"
 
-#: models.py:177 models.py:197
+#: models.py:178 models.py:198
 msgid "Promo Post"
 msgstr "Post de promoção"
 
-#: models.py:198
+#: models.py:199
 msgid "Promos Posts"
 msgstr "Posts de promoção"
 
-#: models.py:212 models.py:227
+#: models.py:212
+msgid "User"
+msgstr "Usuário"
+
+#: models.py:214 models.py:231
 msgid "Answer"
 msgstr "Resposta"
 
-#: models.py:213
+#: models.py:215
 msgid "Answer URL"
 msgstr "URL da resposta"
 
-#: models.py:216
+#: models.py:217
+msgid "Answer File"
+msgstr "Arquivo da resposta"
+
+#: models.py:220
 msgid "Publish file?"
 msgstr "Publicar Arquivo?"
 
-#: models.py:218
+#: models.py:222
 msgid "Show image thumbnail if image, or link if another type of file"
 msgstr ""
 "Mostra miniatura da imagem se arquivo for uma imagem ou um link caso seja de "
 "outro tipo"
 
-#: models.py:220
+#: models.py:224
 msgid "Published"
 msgstr "Publicado"
 
-#: models.py:221
+#: models.py:225
 msgid "Date insert"
 msgstr "Data de inserção"
 
-#: models.py:222
+#: models.py:226
 msgid "Date update"
 msgstr "Data de atualização"
 
-#: models.py:223
+#: models.py:227
 msgid "Is winner?"
 msgstr "É ganhador?"
 
-#: models.py:228
+#: models.py:232
 msgid "Answers"
 msgstr "Respostas"
 
-#: models.py:252
+#: models.py:256
 msgid "No file"
 msgstr "Sem arquivo"
 
-#: models.py:282 models.py:292
+#: models.py:286 models.py:296
 msgid "Promo Box"
 msgstr "Box de promoção"
 
-#: models.py:283
+#: models.py:287
 msgid "Promo Boxes"
 msgstr "Boxes de promoção"
 
-#: models.py:302
+#: models.py:306
 msgid "Date available"
 msgstr "Data de publicação"
 
-#: models.py:308
+#: models.py:312
 msgid "Promo box promos"
 msgstr "Box de promoção"
 
-#: models.py:309
+#: models.py:313
 msgid "Promo boxes promos"
 msgstr "Boxes de Promoções"
 
-#: models.py:317
+#: models.py:321
 msgid "Promo not published!"
 msgstr "Promoção não publicada!"
 
-#: models.py:334
+#: models.py:338
 msgid "Promo Config"
 msgstr "Config de Box de promoção"
 
-#: models.py:335
+#: models.py:339
 msgid "Promo Configs"
 msgstr "Configs de Post de promoção"
 
