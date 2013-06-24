@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 
-from haystack.indexes import SearchIndex, CharField, DateTimeField
-from haystack import site
+from haystack.indexes import SearchIndex, Indexable, CharField, DateTimeField
 
 from .models import Promo
 
 
-class PromoIndex(SearchIndex):
+class PromoIndex(SearchIndex, Indexable):
     text = CharField(document=True, use_template=True)
     date_available = DateTimeField(model_attr='date_available')
     date_update = DateTimeField(model_attr='date_update')
@@ -20,6 +19,3 @@ class PromoIndex(SearchIndex):
         return Promo.objects.filter(
             date_available__lte=datetime.now(),
             published=True)
-
-
-site.register(Promo, PromoIndex)
