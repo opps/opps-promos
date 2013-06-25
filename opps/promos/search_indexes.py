@@ -18,7 +18,7 @@ class PromoIndex(SearchIndex, Indexable):
     def get_model(self):
         return Promo
 
-    def index_queryset(self):
+    def index_queryset(self, using=None):
         return self.get_model().objects.filter(
             date_available__lte=datetime.now(),
             published=True)
