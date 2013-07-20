@@ -8,17 +8,14 @@ from django.db.models import Q
 from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 
-from taggit.managers import TaggableManager
 
-from opps.core.models import Publishable, PublishableManager, BaseBox, BaseConfig
-from opps.channels.models import Channel
-from opps.articles.models import Post
-from opps.core.models import Slugged
+from opps.core.models import PublishableManager
 from opps.images.models import Image
 from opps.images.generate import image_url
+
+from opps.containers.models import Container
 
 app_namespace = getattr(settings, 'OPPS_PROMOS_URL_NAMESPACE', 'promos')
 
@@ -34,7 +31,7 @@ class PromoManager(PublishableManager):
         )
 
 
-class Promo(Publishable, Slugged):
+class Promo(Container):
 
     FORM_TYPES = (
         ("text", _(u"Text only")),
@@ -46,35 +43,26 @@ class Promo(Publishable, Slugged):
         ("text|url|upload", _(u"Text, Url and Upload")),
     )
 
-    title = models.CharField(_(u"Title"), max_length=255)
     headline = models.TextField(_(u"Headline"), blank=True)
     description = models.TextField(_(u"Description"), blank=True)
 
     rules = models.TextField(_(u'Rules'), blank=True)
     result = models.TextField(_(u'Result'), blank=True)
 
-    channel = models.ForeignKey(Channel, verbose_name=_(u'Channel'),
-                                null=True, blank=True,
-                                on_delete=models.SET_NULL)
-    posts = models.ManyToManyField(Post, null=True, blank=True,
-                                   related_name='promo_post',
-                                   through='PromoPost')
+    containers = models.ManyToManyField(
+        'containers.Container',
+        null=True, blank=True,
+        related_name='promo_container',
+        through='PromoContainer'
+    )
 
-    main_image = models.ForeignKey(Image,
-                                   verbose_name=_(u'Promo Image'), blank=True,
-                                   null=True, on_delete=models.SET_NULL,
-                                   related_name='promo_image')
     banner = models.ForeignKey(Image,
                                verbose_name=_(u'Promo Banner'), blank=True,
                                null=True, on_delete=models.SET_NULL,
                                related_name='promo_banner',
                                help_text=_(u'300 x 498 banner image'))
-    tags = TaggableManager(blank=True, verbose_name=u'Tags')
     date_end = models.DateTimeField(_(u"End date"), null=True, blank=True)
     order = models.IntegerField(_(u"Order"), default=0)
-
-    # has_upload = models.BooleanField(_(u"Has file upload?"), default=False)
-    # has_urlfield = models.BooleanField(_(u"Has url field?"), default=False)
 
     form_type = models.CharField(
         _(u"Form type"),
@@ -154,7 +142,6 @@ class Promo(Publishable, Slugged):
 
     class Meta:
         ordering = ['order']
-        unique_together = ['site', 'slug']
         verbose_name = _(u'Promo')
         verbose_name_plural = _(u'Promos')
 
@@ -172,13 +159,13 @@ class Promo(Publishable, Slugged):
         return _("Promo")
 
 
-class PromoPost(models.Model):
-    post = models.ForeignKey(
-        Post,
-        verbose_name=_(u'Promo Post'),
+class PromoContainer(models.Model):
+    container = models.ForeignKey(
+        'containers.Container',
+        verbose_name=_(u'Promo Container'),
         null=True,
         blank=True,
-        related_name='promopost_post',
+        related_name='promocontainer_container',
         on_delete=models.SET_NULL
     )
     promo = models.ForeignKey(
@@ -193,10 +180,9 @@ class PromoPost(models.Model):
     def __unicode__(self):
         return u"{0}-{1}".format(self.promo.slug, self.post.slug)
 
-
     class Meta:
-        verbose_name = _(u'Promo Post')
-        verbose_name_plural = _(u'Promos Posts')
+        verbose_name = _(u'Promo Container')
+        verbose_name_plural = _(u'Promo Containers')
 
 
 def get_file_path(instance, filename):
@@ -231,7 +217,6 @@ class Answer(models.Model):
         verbose_name = _(u'Answer')
         verbose_name_plural = _(u'Answers')
 
-
     @property
     def filename(self):
         return os.path.basename(self.answer_file.name)
@@ -258,82 +243,3 @@ class Answer(models.Model):
     @property
     def show_file(self):
         return self.answer_file and self.publish_file
-
-
-class PromoBox(BaseBox):
-
-    promos = models.ManyToManyField(
-        'promos.Promo',
-        null=True, blank=True,
-        related_name='promobox_promos',
-        through='promos.PromoBoxPromos',
-        verbose_name =_(u'Promos')
-    )
-
-    def ordered_promos(self, field='order'):
-        now = timezone.now()
-        qs = self.promos.filter(
-            published=True,
-            date_available__lte=now,
-            promoboxpromos_promos__date_available__lte=now
-        ).filter(
-            models.Q(promoboxpromos_promos__date_end__gte=now) |
-            models.Q(promoboxpromos_promos__date_end__isnull=True)
-        )
-        return qs.order_by('promoboxpromos_promos__order').distinct()
-
-    class Meta:
-        verbose_name =  _(u'Promo Box')
-        verbose_name_plural = _(u'Promo Boxes')
-
-
-class PromoBoxPromos(models.Model):
-    promobox = models.ForeignKey(
-        'promos.PromoBox',
-        null=True, blank=True,
-        on_delete=models.SET_NULL,
-        related_name='promoboxpromos_promoboxes',
-        verbose_name=_(u'Promo Box'),
-    )
-    promo = models.ForeignKey(
-        'promos.Promo',
-        null=True, blank=True,
-        on_delete=models.SET_NULL,
-        related_name='promoboxpromos_promos',
-        verbose_name=_(u'Promo'),
-    )
-    order = models.PositiveIntegerField(_(u'Order'), default=0)
-    date_available = models.DateTimeField(_(u"Date available"),
-                                          default=timezone.now, null=True)
-    date_end = models.DateTimeField(_(u"End date"), null=True, blank=True)
-
-    class Meta:
-        ordering = ('order',)
-        verbose_name = _('Promo box promos')
-        verbose_name_plural = _('Promo boxes promos')
-
-    def __unicode__(self):
-        return u"{0}-{1}".format(self.promobox.slug, self.promo.slug)
-
-    def clean(self):
-
-        if not self.promo.published:
-            raise ValidationError(_(u'Promo not published!'))
-
-
-class PromoConfig(BaseConfig):
-
-    promo = models.ForeignKey(
-        'promos.Promo',
-        null=True, blank=True,
-        on_delete=models.SET_NULL,
-        related_name='promoconfig_promos',
-        verbose_name=_(u'Promo'),
-    )
-
-    class Meta:
-        permissions = (("developer", "Developer"),)
-        unique_together = ("key_group", "key", "site", "channel", "article",
-                           "promo")
-        verbose_name = _(u'Promo Config')
-        verbose_name_plural = _(u'Promo Configs')
