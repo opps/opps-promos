@@ -144,7 +144,7 @@ class Migration(SchemaMigration):
             'site_iid': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True', 'max_length': '4', 'null': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '150'}),
             'sources': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['sources.Source']", 'null': 'True', 'through': u"orm['containers.ContainerSource']", 'blank': 'True'}),
-            'tags': ('django.db.models.fields.CharField', [], {'max_length': '4000', 'blank': 'True'}),
+            'tags': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '4000', 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '140', 'db_index': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
         },
@@ -194,7 +194,7 @@ class Migration(SchemaMigration):
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '150'}),
             'smart': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'source': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['sources.Source']", 'null': 'True', 'blank': 'True'}),
-            'tags': ('django.db.models.fields.CharField', [], {'max_length': '4000', 'blank': 'True'}),
+            'tags': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '4000', 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '140', 'db_index': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             'valign': ('django.db.models.fields.CharField', [], {'default': 'False', 'max_length': '6', 'null': 'True', 'blank': 'True'})

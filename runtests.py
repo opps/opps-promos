@@ -40,7 +40,6 @@ if not settings.configured:
             'opps.flatpages',
 
             'opps.promos',
-            'taggit',
 
         ),
         SITE_ID = 1,
