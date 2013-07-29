@@ -35,7 +35,7 @@ setup(
     author=promos.__author__,
     author_email=promos.__email__,
     url='http://oppsproject.org',
-    download_url="https://github.com/YACOWS/opps-promos/tarball/master",
+    download_url="https://github.com/opps/opps-promos/tarball/master",
     license=promos.__license__,
     packages=find_packages(exclude=('doc', 'docs',)),
     package_dir={'opps': 'opps'},
