@@ -3,7 +3,7 @@ from django.contrib import admin
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from redactor.widgets import RedactorEditor
+from opps.core.widgets import OppsEditor
 
 from .models import Promo, Answer, PromoContainer
 from opps.core.admin import PublishableAdmin
@@ -15,11 +15,11 @@ class PromoAdminForm(forms.ModelForm):
     class Meta:
         model = Promo
         widgets = {
-            "headline": RedactorEditor(),
-            "description": RedactorEditor(),
-            "confirmation_email_html": RedactorEditor(),
-            "rules": RedactorEditor(),
-            "result": RedactorEditor()
+            "headline": OppsEditor(),
+            "description": OppsEditor(),
+            "confirmation_email_html": OppsEditor(),
+            "rules": OppsEditor(),
+            "result": OppsEditor()
         }
 
 
