@@ -7,6 +7,29 @@ from opps.promos.models import Promo, PromoBox
 register = template.Library()
 
 
+
+@register.simple_tag(takes_context=True)
+def get_inactive_promos(context, number=5, channel_slug=None,
+                        template_name='promos/inactives.html',
+                        exclude_slug=None):
+
+    inactive_promos = Promo.objects.all_closed()
+    if channel_slug:
+        inactive_promos = inactive_promos.filter(channel__slug=channel_slug)
+
+    if exclude_slug:
+        inactive_promos = inactive_promos.exclude(slug=exclude_slug)
+
+    inactive_promos = inactive_promos[:number]
+
+    t = template.loader.get_template(template_name)
+
+    return t.render(template.Context({'inactive_promos': inactive_promos,
+                                      'channel_slug': channel_slug,
+                                      'number': number,
+                                      'context': context}))
+                                      
+
 @register.simple_tag(takes_context=True)
 def get_active_promos(context, number=5, channel_slug=None,
                       template_name='promos/actives.html',
