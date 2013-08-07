@@ -29,6 +29,13 @@ class PromoManager(PublishableManager):
         ).filter(
             Q(date_end__gte=timezone.now()) | Q(date_end__isnull=True)
         )
+        
+    def all_closed(self):
+        return super(PromoManager, self).get_query_set().filter(
+            date_available__lte=timezone.now(),
+            published=True,
+            date_end__lte=timezone.now()
+        )
 
 
 class Promo(Container):
