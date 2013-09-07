@@ -53,7 +53,7 @@ class PromoList(ListView):
 
     @property
     def queryset(self):
-        return Promo.objects.all_published()
+        return Promo.objects.all_opened()
 
 
 class ChannelPromoList(ListView):
