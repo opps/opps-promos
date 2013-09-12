@@ -35,7 +35,6 @@ if not settings.configured:
             'opps.boxes',
             'opps.sitemaps',
             'opps.articles',
-            'opps.sources',
             'opps.images',
             'opps.flatpages',
 
