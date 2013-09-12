@@ -31,7 +31,8 @@ class PromoContainerInline(admin.TabularInline):
     actions = None
     extra = 1
     classes = ('collapse',)
-
+    verbose_name = _(u'Promo Container')
+    verbose_name_plural = _(u'Promo Containers')
 
 @apply_opps_rules('promos')
 class PromoAdmin(PublishableAdmin):

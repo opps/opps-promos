@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-12 11:34-0300\n"
+"POT-Creation-Date: 2013-09-12 01:06-0300\n"
 "PO-Revision-Date: 2013-04-26 18:13+0000\n"
 "Last-Translator: josene <jsene@yacows.com.br>\n"
 "Language-Team: Portuguese (Brazil) <opps-developers@googlegroups.com>\n"
@@ -21,236 +21,187 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: admin.py:52 admin.py:137
+#: admin.py:34 models.py:172 models.py:191
+msgid "Promo Container"
+msgstr "Container de Promoção"
+
+#: admin.py:35 models.py:192
+msgid "Promo Containers"
+msgstr "Container de promoções"
+
+#: admin.py:50
 msgid "Identification"
 msgstr "Identificação"
 
-#: admin.py:55
+#: admin.py:53
 msgid "Content"
 msgstr "Conteúdo"
 
-#: admin.py:59 models.py:50
+#: admin.py:57 models.py:53
 msgid "Headline"
 msgstr "Cabeçalho"
 
-#: admin.py:63 models.py:51
+#: admin.py:61 models.py:54
 msgid "Description"
 msgstr "Descrição"
 
-#: admin.py:67 models.py:53
+#: admin.py:65 models.py:56
 msgid "Rules"
 msgstr "Regras"
 
-#: admin.py:71 admin.py:139
+#: admin.py:69
 msgid "Relationships"
 msgstr "Relacionamentos"
 
-#: admin.py:74 admin.py:141
+#: admin.py:72
 msgid "Publication"
 msgstr "Publicação"
 
-#: admin.py:80
+#: admin.py:78
 msgid "Participation"
 msgstr "Participação"
 
-#: admin.py:84 models.py:54
+#: admin.py:82 models.py:57
 msgid "Result"
 msgstr "Resultado"
 
-#: admin.py:95
+#: admin.py:93
 msgid "No Image"
 msgstr "Sem Imagem"
 
-#: admin.py:96
+#: admin.py:94
 msgid "Thumbnail"
 msgstr "Miniatura"
 
-#: admin.py:110
+#: admin.py:108
 msgid "Upload"
 msgstr "Upload"
 
-#: admin.py:154
-msgid "Clean ended promos"
-msgstr "Promoções finalizadas"
-
-#: models.py:40
+#: models.py:44
 msgid "Text only"
 msgstr "Apenas texto"
 
-#: models.py:41
+#: models.py:45
 msgid "Upload only"
 msgstr "Apenas upload"
 
-#: models.py:42
+#: models.py:46
 msgid "Url only"
 msgstr "Apenas URL"
 
-#: models.py:44
+#: models.py:48
 msgid "Text and Upload"
 msgstr "Texto e upload"
 
-#: models.py:45
+#: models.py:49
 msgid "Text and Url"
 msgstr "Texto e URL"
 
-#: models.py:46
+#: models.py:50
 msgid "Text, Url and Upload"
 msgstr "Texto, URL e Upload"
 
-#: models.py:49
-msgid "Title"
-msgstr "Título"
-
-#: models.py:56
-msgid "Channel"
-msgstr "Canal"
-
-#: models.py:64
-msgid "Promo Image"
-msgstr "Imagem da promoção"
-
-#: models.py:68
+#: models.py:67
 msgid "Promo Banner"
 msgstr "Banner da promoção"
 
-#: models.py:71
+#: models.py:70
 msgid "300 x 498 banner image"
 msgstr "Imagem de banner 300 x 498"
 
-#: models.py:73 models.py:308
+#: models.py:71
 msgid "End date"
 msgstr "Data de finalização"
 
-#: models.py:74 models.py:305
+#: models.py:72
 msgid "Order"
 msgstr "Ordem"
 
-#: models.py:80
+#: models.py:75
 msgid "Form type"
 msgstr "Tipo de form"
 
-#: models.py:86
+#: models.py:81
 msgid "Display answers?"
 msgstr "Mostrar perguntas?"
 
-#: models.py:87
+#: models.py:82
 msgid "Display winners?"
 msgstr "Mostrar vencedores?"
 
-#: models.py:90
+#: models.py:85
 msgid "Send confirmation email?"
 msgstr "Enviar e-mail de confirmação?"
 
-#: models.py:94
+#: models.py:89
 msgid "Confirmation email (Text)"
 msgstr "E-mail de confirmação (texto puro)"
 
-#: models.py:98
+#: models.py:93
 msgid "Confirmation email (HTML)"
 msgstr "E-mail de confirmação (HTML)"
 
-#: models.py:102
+#: models.py:97
 msgid "Email"
 msgstr "E-mail"
 
-#: models.py:158 models.py:172 models.py:186 models.py:213 models.py:303
-#: models.py:331
+#: models.py:152 models.py:166 models.py:180 models.py:206
 msgid "Promo"
 msgstr "Promoção"
 
-#: models.py:159 models.py:270
+#: models.py:153
 msgid "Promos"
 msgstr "Promoções"
 
-#: models.py:178 models.py:198
-msgid "Promo Post"
-msgstr "Post de promoção"
-
-#: models.py:199
-msgid "Promos Posts"
-msgstr "Posts de promoção"
-
-#: models.py:212
+#: models.py:205
 msgid "User"
 msgstr "Usuário"
 
-#: models.py:214 models.py:231
+#: models.py:207 models.py:224
 msgid "Answer"
 msgstr "Resposta"
 
-#: models.py:215
+#: models.py:208
 msgid "Answer URL"
 msgstr "URL da resposta"
 
-#: models.py:217
+#: models.py:210
 msgid "Answer File"
 msgstr "Arquivo da resposta"
 
-#: models.py:220
+#: models.py:213
 msgid "Publish file?"
 msgstr "Publicar Arquivo?"
 
-#: models.py:222
+#: models.py:215
 msgid "Show image thumbnail if image, or link if another type of file"
 msgstr ""
 "Mostra miniatura da imagem se arquivo for uma imagem ou um link caso seja de "
 "outro tipo"
 
-#: models.py:224
+#: models.py:217
 msgid "Published"
 msgstr "Publicado"
 
-#: models.py:225
+#: models.py:218
 msgid "Date insert"
 msgstr "Data de inserção"
 
-#: models.py:226
+#: models.py:219
 msgid "Date update"
 msgstr "Data de atualização"
 
-#: models.py:227
+#: models.py:220
 msgid "Is winner?"
 msgstr "É ganhador?"
 
-#: models.py:232
+#: models.py:225
 msgid "Answers"
 msgstr "Respostas"
 
-#: models.py:256
+#: models.py:248
 msgid "No file"
 msgstr "Sem arquivo"
-
-#: models.py:286 models.py:296
-msgid "Promo Box"
-msgstr "Box de promoção"
-
-#: models.py:287
-msgid "Promo Boxes"
-msgstr "Boxes de promoção"
-
-#: models.py:306
-msgid "Date available"
-msgstr "Data de publicação"
-
-#: models.py:312
-msgid "Promo box promos"
-msgstr "Box de promoção"
-
-#: models.py:313
-msgid "Promo boxes promos"
-msgstr "Boxes de Promoções"
-
-#: models.py:321
-msgid "Promo not published!"
-msgstr "Promoção não publicada!"
-
-#: models.py:338
-msgid "Promo Config"
-msgstr "Config de Box de promoção"
-
-#: models.py:339
-msgid "Promo Configs"
-msgstr "Configs de Post de promoção"
 
 #: views.py:29
 msgid "Thank you! You are now inscribed to {obj.title}"
@@ -276,6 +227,42 @@ msgstr "Você tem que preencher o formulário"
 #, python-format
 msgid "You are now registered for %s."
 msgstr "Você está agora registrado por %s."
+
+#~ msgid "Clean ended promos"
+#~ msgstr "Promoções finalizadas"
+
+#~ msgid "Title"
+#~ msgstr "Título"
+
+#~ msgid "Channel"
+#~ msgstr "Canal"
+
+#~ msgid "Promo Image"
+#~ msgstr "Imagem da promoção"
+
+#~ msgid "Promo Post"
+#~ msgstr "Post de promoção"
+
+#~ msgid "Promos Posts"
+#~ msgstr "Posts de promoção"
+
+#~ msgid "Promo Box"
+#~ msgstr "Box de promoção"
+
+#~ msgid "Promo Boxes"
+#~ msgstr "Boxes de promoção"
+
+#~ msgid "Date available"
+#~ msgstr "Data de publicação"
+
+#~ msgid "Promo box promos"
+#~ msgstr "Box de promoção"
+
+#~ msgid "Promo boxes promos"
+#~ msgstr "Boxes de Promoções"
+
+#~ msgid "Promo not published!"
+#~ msgstr "Promoção não publicada!"
 
 #~ msgid "URL"
 #~ msgstr "URL"

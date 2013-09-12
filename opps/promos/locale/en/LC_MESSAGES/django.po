@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-09 10:49-0300\n"
+"POT-Creation-Date: 2013-09-12 01:06-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,51 +17,59 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:49
+#: admin.py:34 models.py:172 models.py:191
+msgid "Promo Container"
+msgstr ""
+
+#: admin.py:35 models.py:192
+msgid "Promo Containers"
+msgstr ""
+
+#: admin.py:50
 msgid "Identification"
 msgstr ""
 
-#: admin.py:52
+#: admin.py:53
 msgid "Content"
 msgstr ""
 
-#: admin.py:56 models.py:53
+#: admin.py:57 models.py:53
 msgid "Headline"
 msgstr ""
 
-#: admin.py:60 models.py:54
+#: admin.py:61 models.py:54
 msgid "Description"
 msgstr ""
 
-#: admin.py:64 models.py:56
+#: admin.py:65 models.py:56
 msgid "Rules"
 msgstr ""
 
-#: admin.py:68
+#: admin.py:69
 msgid "Relationships"
 msgstr ""
 
-#: admin.py:71
+#: admin.py:72
 msgid "Publication"
 msgstr ""
 
-#: admin.py:77
+#: admin.py:78
 msgid "Participation"
 msgstr ""
 
-#: admin.py:81 models.py:57
+#: admin.py:82 models.py:57
 msgid "Result"
 msgstr ""
 
-#: admin.py:92
+#: admin.py:93
 msgid "No Image"
 msgstr ""
 
-#: admin.py:93
+#: admin.py:94
 msgid "Thumbnail"
 msgstr ""
 
-#: admin.py:107
+#: admin.py:108
 msgid "Upload"
 msgstr ""
 
@@ -139,14 +147,6 @@ msgstr ""
 
 #: models.py:153
 msgid "Promos"
-msgstr ""
-
-#: models.py:172 models.py:191
-msgid "Promo Container"
-msgstr ""
-
-#: models.py:192
-msgid "Promo Containers"
 msgstr ""
 
 #: models.py:205
