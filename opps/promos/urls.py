@@ -24,7 +24,7 @@ urlpatterns = patterns(
         name='result_promo'
     ),
     url(
-        r'^(?P<slug>[\w-]+)$',
+        r'^(?P<slug>[\w-]+)\.html$',
         PromoDetail.as_view(),
         name='open_promo'
     ),
