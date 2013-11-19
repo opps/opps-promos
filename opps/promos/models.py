@@ -111,7 +111,7 @@ class Promo(Container):
         if self.date_end and self.countdown_enabled:
             now = timezone.now()
             delta = self.date_end - now
-            return delta.days
+            return delta
 
     def get_form_type(self):
         try:
