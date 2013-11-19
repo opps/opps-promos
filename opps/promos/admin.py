@@ -2,7 +2,8 @@
 from django.contrib import admin
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-
+from django.contrib.sites.models import Site
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from opps.core.widgets import OppsEditor
 
 from .models import Promo, Answer, PromoContainer
@@ -12,6 +13,11 @@ from opps.images.generate import image_url
 
 
 class PromoAdminForm(forms.ModelForm):
+    mirror_site = forms.ModelMultipleChoiceField(
+        queryset=Site.objects.all(),
+        widget=FilteredSelectMultiple("verbose name", is_stacked=False)
+    )
+
     class Meta:
         model = Promo
         widgets = {
