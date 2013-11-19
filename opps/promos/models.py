@@ -10,7 +10,6 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
-
 from opps.core.models import PublishableManager
 from opps.images.models import Image
 from opps.images.generate import image_url
@@ -41,6 +40,8 @@ class PromoManager(PublishableManager):
 class Promo(Container):
 
     FORM_TYPES = (
+        ("none", _(u"Only registration")),
+
         ("text", _(u"Text only")),
         ("upload", _(u"Upload only")),
         ("url", _(u"Url only")),
@@ -98,6 +99,11 @@ class Promo(Container):
         max_length=255,
         null=True,
         blank=True
+    )
+
+    countdown_enabled = models.BooleanField(
+        _(u"Countdown enabled"),
+        default=True
     )
 
     def get_form_type(self):
