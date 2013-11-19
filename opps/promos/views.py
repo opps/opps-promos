@@ -7,40 +7,18 @@ from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from django.core.mail import EmailMultiAlternatives
 from django.contrib.sites.models import get_current_site
 
 
 from opps.channels.models import Channel
 
 from .models import Promo, Answer
+from .tasks import send_confirmation_email
 
-# IS THERE A BETTER WAY?
 if not 'endless_pagination' in settings.INSTALLED_APPS:
     settings.INSTALLED_APPS += (
         'endless_pagination',
     )
-
-
-# TODO: Delay it on Celery
-def send_confirmation_email(subject, obj, user):
-
-    DEFAULT_TXT = _(
-        u"Thank you! "
-        u"You are now inscribed to {obj.title}"
-    ).format(obj=obj)
-
-    msg = EmailMultiAlternatives(
-        subject,
-        obj.confirmation_email_txt or DEFAULT_TXT,
-        obj.confirmation_email_address or settings.DEFAULT_FROM_EMAIL,
-        [user.email]
-    )
-    msg.attach_alternative(
-        obj.confirmation_email_html or DEFAULT_TXT,
-        'text/html'
-    )
-    return msg.send()
 
 
 class PromoList(ListView):
@@ -209,6 +187,10 @@ class PromoDetail(DetailView):
         # send confirmation email
         if self.object.send_confirmation_email:
             subject = _(u"You are now registered for %s.") % self.object.title
-            send_confirmation_email(subject, self.object, request.user)
+            if getattr(settings, "OPPS_PROMO_CELERY_ENABLED", True):
+                send_confirmation_email.delay(subject,
+                                              self.object, request.user)
+            else:
+                send_confirmation_email(subject, self.object, request.user)
 
         return self.render_to_response(context)

@@ -74,7 +74,9 @@ class PromoAdmin(PublishableAdmin):
             'classes': ('extrapretty'),
             'fields': ('published', ('date_available', 'date_end'),
                        'order', 'form_type',
-                       'display_answers')}),
+                       'display_answers',
+                       'countdown_enabled',
+                       'mirror_site')}),
 
         (_(u'Participation'), {
             'fields': ('send_confirmation_email', 'confirmation_email_txt',
