@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-29 15:47-0200\n"
+"POT-Creation-Date: 2014-01-29 15:54-0200\n"
 "PO-Revision-Date: 2013-04-26 18:13+0000\n"
 "Last-Translator: josene <jsene@yacows.com.br>\n"
 "Language-Team: Portuguese (Brazil) <opps-developers@googlegroups.com>\n"
@@ -131,7 +131,7 @@ msgstr "Tipo de form"
 
 #: models.py:82
 msgid "Display answers?"
-msgstr "Mostrar perguntas?"
+msgstr "Mostrar respostas?"
 
 #: models.py:83
 msgid "Display winners?"
