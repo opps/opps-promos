@@ -15,7 +15,8 @@ from opps.images.generate import image_url
 class PromoAdminForm(forms.ModelForm):
     mirror_site = forms.ModelMultipleChoiceField(
         queryset=Site.objects.all(),
-        widget=FilteredSelectMultiple(_("Mirror site"), is_stacked=False)
+        widget=FilteredSelectMultiple(_("Mirror site"), is_stacked=False),
+        required=False
     )
 
     class Meta:
