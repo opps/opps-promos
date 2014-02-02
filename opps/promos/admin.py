@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
-from django.contrib import admin
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.sites.models import Site
+from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
-from opps.core.widgets import OppsEditor
+from django.contrib.sites.models import Site
+from django.utils.translation import ugettext_lazy as _
 
-from .models import Promo, Answer, PromoContainer
+from opps.contrib.multisite.admin import AdminViewPermission
 from opps.core.admin import PublishableAdmin
 from opps.core.admin import apply_opps_rules
+from opps.core.widgets import OppsEditor
 from opps.images.generate import image_url
+
+from .models import Promo, Answer, PromoContainer
 
 
 class PromoAdminForm(forms.ModelForm):
@@ -43,7 +45,7 @@ class PromoContainerInline(admin.TabularInline):
 
 
 @apply_opps_rules('promos')
-class PromoAdmin(PublishableAdmin):
+class PromoAdmin(PublishableAdmin, AdminViewPermission):
     form = PromoAdminForm
     prepopulated_fields = {"slug": ["title"]}
     list_display = ['title', 'channel', 'date_available',
@@ -103,13 +105,6 @@ class PromoAdmin(PublishableAdmin):
         return _(u'No Image')
     banner_thumb.short_description = _(u'Thumbnail')
     banner_thumb.allow_tags = True
-
-    def queryset(self, request):
-        """Limit objects to those that belong to the request's user."""
-        qs = super(PromoAdmin, self).queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
 
 
 @apply_opps_rules('promos')
