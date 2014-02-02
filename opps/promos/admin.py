@@ -104,6 +104,13 @@ class PromoAdmin(PublishableAdmin):
     banner_thumb.short_description = _(u'Thumbnail')
     banner_thumb.allow_tags = True
 
+    def queryset(self, request):
+        """Limit objects to those that belong to the request's user."""
+        qs = super(PromoAdmin, self).queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
+
 
 @apply_opps_rules('promos')
 class AnswerAdmin(admin.ModelAdmin):
