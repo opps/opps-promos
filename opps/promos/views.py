@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from django.conf import settings
+from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.models import get_current_site, Site
 
 
 from opps.channels.models import Channel
@@ -113,13 +114,23 @@ class PromoDetail(DetailView):
         return names
 
     def get_object(self):
+        self.fallback = getattr(settings, 'OPPS_MULTISITE_FALLBACK', False)
         self.site = get_current_site(self.request)
+        self.site_master = Site.objects.order_by('id')[0]
+
         filters = dict(slug=self.kwargs['slug'], site=self.site)
         preview_enabled = self.request.user and self.request.user.is_staff
         if not preview_enabled:
             filters['date_available__lte'] = timezone.now()
             filters['published'] = True
-        return get_object_or_404(Promo, **filters)
+
+        try:
+            return Promo.objects.get(**filters)
+        except Promo.DoesNotExist:
+            if self.fallback:
+                filters['site'] = self.site_master
+                return get_object_or_404(Promo, **filters)
+            raise Http404(u"Promo object does not exist")
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
