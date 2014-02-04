@@ -44,7 +44,7 @@ class PromoAdmin(PublishableAdmin, AdminViewPermission):
     form = PromoAdminForm
     prepopulated_fields = {"slug": ["title"]}
     list_display = ['title', 'channel', 'date_available',
-                    'date_end', 'published', 'preview_url']
+                    'date_end', 'site', 'published', 'preview_url']
     list_filter = ["date_end", "date_available", "published", "channel"]
     search_fields = ["title", "headline", "description"]
     exclude = ('user',)
