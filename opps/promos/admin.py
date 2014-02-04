@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib import admin
-from django.contrib.admin.widgets import FilteredSelectMultiple
-from django.contrib.sites.models import Site
+#from django.contrib.admin.widgets import FilteredSelectMultiple
+#from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
 
 from opps.contrib.multisite.admin import AdminViewPermission
@@ -15,11 +15,6 @@ from .models import Promo, Answer, PromoContainer
 
 
 class PromoAdminForm(forms.ModelForm):
-    mirror_site = forms.ModelMultipleChoiceField(
-        queryset=Site.objects.all(),
-        widget=FilteredSelectMultiple(_("Mirror site"), is_stacked=False),
-        required=False
-    )
 
     class Meta:
         model = Promo
@@ -108,7 +103,8 @@ class PromoAdmin(PublishableAdmin, AdminViewPermission):
 
 
 @apply_opps_rules('promos')
-class AnswerAdmin(admin.ModelAdmin):
+class AnswerAdmin(AdminViewPermission):
+    site_lookup = 'promo__site_iid__in'
     list_display = ['promo', 'user', 'date_insert',
                     'published', 'is_winner', 'image_thumb']
     list_filter = ["promo", "date_insert", "published", 'is_winner']
