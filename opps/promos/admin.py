@@ -108,7 +108,7 @@ class AnswerAdmin(AdminViewPermission):
     list_display = ['promo', 'user', 'date_insert',
                     'published', 'is_winner', 'image_thumb']
     list_filter = ["promo", "date_insert", "published", 'is_winner']
-    search_fields = ["answer", "answer_url", "user"]
+    search_fields = ["answer", "user__email", "answer_url"]
     raw_id_fields = ['promo', 'user']
 
     def image_thumb(self, obj):
