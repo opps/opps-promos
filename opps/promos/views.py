@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import get_current_site, Site
-
+from django.db.models import Q
 
 from opps.channels.models import Channel
 
@@ -32,7 +32,12 @@ class PromoList(ListView):
 
     @property
     def queryset(self):
-        return Promo.objects.all_opened()
+        site = get_current_site(self.request)
+        promos = Promo.objects.all_opened()
+        return promos.filter(
+            Q(mirror_site__domain=site.domain) |
+            Q(site__domain=site.domain)
+        ).distinct()
 
 
 class ChannelPromoList(ListView):
@@ -46,13 +51,17 @@ class ChannelPromoList(ListView):
 
     @property
     def queryset(self):
+        site = get_current_site(self.request)
         long_slug = self.kwargs['channel__long_slug'][:-1]
         get_object_or_404(Channel, long_slug=long_slug)
         return Promo.objects.filter(
             channel__long_slug=long_slug,
             published=True,
             date_available__lte=timezone.now()
-        )
+        ).filter(
+            Q(mirror_site__domain=site.domain) |
+            Q(site__domain=site.domain)
+        ).distinct()
 
 
 class PromoDetail(DetailView):
@@ -128,9 +137,19 @@ class PromoDetail(DetailView):
             return Promo.objects.get(**filters)
         except Promo.DoesNotExist:
             if self.fallback:
-                filters['site'] = self.site_master
-                return get_object_or_404(Promo, **filters)
-            raise Http404(u"Promo object does not exist")
+                filters.pop('site', None)
+                promos = Promo.objects.filter(
+                    **filters
+                ).filter(
+                    Q(mirror_site__domain=self.site.domain) |
+                    Q(site__domain=self.site.domain)
+                ).distinct()
+                try:
+                    return promos.order_by('-date_available')[0]
+                except IndexError:
+                    pass  #  raises final Http404
+
+        raise Http404(u"Promo object does not exist")
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
