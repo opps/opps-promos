@@ -13,6 +13,9 @@ from opps.images.generate import image_url
 
 from .models import Promo, Answer, PromoContainer
 
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
 
 class PromoAdminForm(forms.ModelForm):
 
@@ -102,8 +105,26 @@ class PromoAdmin(PublishableAdmin, AdminViewPermission):
     banner_thumb.allow_tags = True
 
 
+class AnswerResource(resources.ModelResource):
+
+    def dehydrate_is_winner(self, obj):
+        return u'Sim' if obj.is_winner else u'Não'
+
+    def dehydrate_published(self, obj):
+        return u'Sim' if obj.published else u'Não'
+
+    def dehydrate_date_insert(self, obj):
+        return obj.date_insert.strftime('%d/%m/%Y %H:%m')
+
+    class Meta:
+        model = Answer
+        fields = ('promo__title', 'user__email', 'published', 'is_winner',
+                  'date_insert')
+
+
 @apply_opps_rules('promos')
-class AnswerAdmin(AdminViewPermission):
+class AnswerAdmin(AdminViewPermission, ImportExportModelAdmin):
+    resource_class = AnswerResource
     site_lookup = 'promo__site_iid__in'
     list_display = ['promo', 'user', 'date_insert',
                     'published', 'is_winner', 'image_thumb']
