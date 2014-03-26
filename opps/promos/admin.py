@@ -116,10 +116,13 @@ class AnswerResource(resources.ModelResource):
     def dehydrate_date_insert(self, obj):
         return obj.date_insert.strftime('%d/%m/%Y %H:%m')
 
+    def dehydrate_answer(self, obj):
+        return obj.answer or obj.answer_url or _('File')
+
     class Meta:
         model = Answer
-        fields = ('promo__title', 'user__email', 'published', 'is_winner',
-                  'date_insert')
+        fields = ('promo__title', 'answer', 'user__email', 'published',
+                  'is_winner', 'date_insert')
 
 
 @apply_opps_rules('promos')
