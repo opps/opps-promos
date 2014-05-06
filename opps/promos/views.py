@@ -147,7 +147,8 @@ class PromoDetail(DetailView):
                 try:
                     return promos.order_by('-date_available')[0]
                 except IndexError:
-                    pass  #  raises final Http404
+                    # raises final Http404
+                    pass
 
         raise Http404(u"Promo object does not exist")
 
@@ -200,6 +201,11 @@ class PromoDetail(DetailView):
                 user=request.user,
                 promo=self.object,
                 answer=answer
+            )
+        elif self.object.form_type == 'none':
+            instance = Answer(
+                user=request.user,
+                promo=self.object
             )
         else:
             context['error'] = _(u" You have to fill the form")
