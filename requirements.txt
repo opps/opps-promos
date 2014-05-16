@@ -1,3 +1,3 @@
 -e git+https://github.com/opps/opps.git#egg=opps
-django-endless-pagination==1.1
-django-import-export==0.2.1
+django-endless-pagination=2.0
+django-import-export==0.2.2
