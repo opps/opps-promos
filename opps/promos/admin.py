@@ -129,7 +129,7 @@ class AnswerResource(resources.ModelResource):
 class AnswerAdmin(AdminViewPermission, ImportExportModelAdmin):
     resource_class = AnswerResource
     site_lookup = 'promo__site_iid__in'
-    list_display = ['promo', 'user', 'date_insert',
+    list_display = ['promo', 'user', 'answer', 'date_insert',
                     'published', 'is_winner', 'image_thumb']
     list_filter = ["promo", "date_insert", "published", 'is_winner']
     search_fields = ["answer", "user__email", "answer_url"]
