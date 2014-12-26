@@ -52,7 +52,7 @@ class ChannelPromoList(ListView):
     @property
     def queryset(self):
         site = get_current_site(self.request)
-        long_slug = self.kwargs['channel__long_slug'][:-1]
+        long_slug = self.kwargs['channel__long_slug'].strip('/')
         return Promo.objects.filter(
             channel__long_slug=long_slug,
             published=True,
