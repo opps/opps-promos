@@ -185,6 +185,8 @@ class PromoDetail(DetailView):
         context = self.get_context_data(**kwargs)
         context['answers'] = self.object.answers
         context['request'] = request
+        if self.object.channel:
+            context['channel'] = self.object.channel
 
         # check if is_closed or not published
         if not self.object.is_opened or not self.object.published:
