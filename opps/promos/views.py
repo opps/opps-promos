@@ -53,7 +53,6 @@ class ChannelPromoList(ListView):
     def queryset(self):
         site = get_current_site(self.request)
         long_slug = self.kwargs['channel__long_slug'][:-1]
-        get_object_or_404(Channel, long_slug=long_slug)
         return Promo.objects.filter(
             channel__long_slug=long_slug,
             published=True,
@@ -62,6 +61,13 @@ class ChannelPromoList(ListView):
             Q(mirror_site__domain=site.domain) |
             Q(site__domain=site.domain)
         ).distinct()
+
+    def get_context_data(self, *args, **kwargs):
+        long_slug = self.kwargs['channel__long_slug'].strip('/')
+        context = super(ChannelPromoList, self).get_context_data(*args,
+                                                                 **kwargs)
+        context['channel'] = get_object_or_404(Channel, long_slug=long_slug)
+        return context
 
 
 class PromoDetail(DetailView):
