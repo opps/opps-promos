@@ -44,6 +44,10 @@ class ChannelPromoList(ListView):
 
     context_object_name = "promos"
 
+    def __init__(self, *args, **kwargs):
+        self.channel = None
+        super(ChannelPromoList, self).__init__(*args, **kwargs)
+
     @property
     def template_name(self):
         long_slug = self.kwargs.get('channel__long_slug')
@@ -53,7 +57,8 @@ class ChannelPromoList(ListView):
     def queryset(self):
         site = get_current_site(self.request)
         long_slug = self.kwargs['channel__long_slug'].strip('/')
-        get_object_or_404(Channel, long_slug=long_slug)
+        self.channel = get_object_or_404(Channel, long_slug=long_slug)
+
         return Promo.objects.filter(
             channel__long_slug=long_slug,
             published=True,
@@ -62,6 +67,12 @@ class ChannelPromoList(ListView):
             Q(mirror_site__domain=site.domain) |
             Q(site__domain=site.domain)
         ).distinct()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ChannelPromoList, self).get_context_data(*args,
+                                                                 **kwargs)
+        context['channel'] = self.channel
+        return context
 
 
 class PromoDetail(DetailView):
@@ -174,6 +185,8 @@ class PromoDetail(DetailView):
         context = self.get_context_data(**kwargs)
         context['answers'] = self.object.answers
         context['request'] = request
+        if self.object.channel:
+            context['channel'] = self.object.channel
 
         # check if is_closed or not published
         if not self.object.is_opened or not self.object.published:
