@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.forms.models import modelform_factory
 
 from opps.core.models import PublishableManager
 from opps.images.models import Image
@@ -118,6 +119,20 @@ class Promo(Container):
             return self.form_type.split('|')
         except:
             return [self.form_type]
+
+    def get_answer_form(self):
+        from .forms import BaseAnswerForm
+
+        fields = []
+
+        if self.has_textfield:
+            fields.append('answer')
+        if self.has_urlfield:
+            fields.append('answer_url')
+        if self.has_upload:
+            fields.append('answer_file')
+
+        return modelform_factory(Answer, form=BaseAnswerForm, fields=fields)
 
     @property
     def has_upload(self):

@@ -174,6 +174,11 @@ class PromoDetail(DetailView):
 
         context['answered'] = self.object.has_answered(request.user)
 
+        AnswerForm = self.object.get_answer_form()
+        form = AnswerForm()
+
+        context['form'] = form
+
         if self.object.channel:
             context['channel'] = self.object.channel
 
@@ -195,44 +200,24 @@ class PromoDetail(DetailView):
 
         # check if already answered
         if self.object.has_answered(request.user):
-            context['error'] = _(u" You already answered this promo")
+            context['error'] = _(u"You already answered this promo")
             return self.render_to_response(context)
 
-        answer = request.POST.get('answer')
-        answer_url = request.POST.get('answer_url')
+        AnswerForm = self.object.get_answer_form()
+        form = AnswerForm(request.POST, request.FILES)
 
-        try:
-            answer_file = request.FILES['answer_file']
-        except:
-            answer_file = None
-
-        if not request.POST.get('agree'):
-            context['error'] = _(u" You have to agree with the rules")
-            return self.render_to_response(context)
-        elif any((answer, answer_url, answer_file)):
-            instance = Answer(
-                user=request.user,
-                promo=self.object,
-                answer=answer
-            )
-        elif self.object.form_type == 'none':
-            instance = Answer(
-                user=request.user,
-                promo=self.object
-            )
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.promo = self.object
+            instance.save()
+            context['success'] = instance
         else:
-            context['error'] = _(u" You have to fill the form")
+            context['form'] = form
+            context['error'] = form.non_field_errors()
             return self.render_to_response(context)
 
-        if answer_url:
-            instance.answer_url = answer_url
-
-        if answer_file:
-            instance.answer_file.save(answer_file._name, answer_file, True)
-
-        instance.save()
-        context['success'] = instance
-
+        context['form'] = form
         # send confirmation email
         if self.object.send_confirmation_email:
             subject = _(u"You are now registered for %s.") % self.object.title
