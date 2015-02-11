@@ -2,6 +2,7 @@
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+
 from .models import Answer
 
 
@@ -24,3 +25,9 @@ class BaseAnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ('answer', 'answer_url', 'answer_file',)
+
+
+class AnonyUserForm(forms.Form):
+    name = forms.CharField(label=_('name'), max_length=200)
+    birthday = forms.DateField(label=_('birthday'))
+    email = forms.EmailField(label=_("e-mail"))

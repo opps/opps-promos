@@ -46,8 +46,10 @@
 
     <form method="post" {% if promo.has_upload %} enctype="multipart/form-data" {% endif %}>
         {% csrf_token %}
+        {% if user_formset %}
+            {{ user_formset }}
+        {% endif %}
         {{ form }}
-
         <input type="submit" value="Join">
     </form>
 

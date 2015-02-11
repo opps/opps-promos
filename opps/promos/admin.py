@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib import admin
-#from django.contrib.admin.widgets import FilteredSelectMultiple
-#from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
 
 from opps.contrib.multisite.admin import AdminViewPermission
@@ -18,7 +16,6 @@ from import_export.admin import ImportExportModelAdmin
 
 
 class PromoAdminForm(forms.ModelForm):
-
     class Meta:
         model = Promo
         widgets = {
@@ -47,7 +44,7 @@ class PromoAdmin(PublishableAdmin, AdminViewPermission):
     form = PromoAdminForm
     prepopulated_fields = {"slug": ["title"]}
     list_display = ['title', 'channel', 'date_available',
-                    'date_end', 'site', 'published', 'preview_url']
+                    'date_end', 'site', 'login_required', 'published', 'preview_url']
     list_filter = ["date_end", "date_available", "published", "channel"]
     search_fields = ["title", "headline", "description"]
     exclude = ('user',)
@@ -79,7 +76,8 @@ class PromoAdmin(PublishableAdmin, AdminViewPermission):
 
         (_(u'Publication'), {
             'classes': ('extrapretty'),
-            'fields': ('published', ('date_available', 'date_end'),
+            'fields': ('published', 'login_required',
+                       ('date_available', 'date_end'),
                        'order', 'form_type',
                        'display_answers',
                        'countdown_enabled',
@@ -134,6 +132,7 @@ class AnswerAdmin(AdminViewPermission, ImportExportModelAdmin):
     list_filter = ["promo", "date_insert", "published", 'is_winner']
     search_fields = ["answer", "user__email", "answer_url"]
     raw_id_fields = ['promo', 'user']
+    readonly_fields = ('user_anony_data',)
 
     def image_thumb(self, obj):
         return obj.get_file_display()
