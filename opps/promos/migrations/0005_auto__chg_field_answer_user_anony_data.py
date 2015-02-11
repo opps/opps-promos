@@ -3,6 +3,9 @@ from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class Migration(SchemaMigration):
@@ -18,53 +21,8 @@ class Migration(SchemaMigration):
         db.alter_column(u'promos_answer', 'user_anony_data', self.gf('django.db.models.fields.TextField')())
 
     models = {
-        u'accounts.customuser': {
-            'Meta': {'object_name': 'CustomUser'},
-            'accept_terms': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'birthday': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'city': ('smart_selects.db_fields.ChainedForeignKey', [], {'to': u"orm['localidades.City']", 'null': 'True'}),
-            'comercial_phone': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'complement': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'cpf': ('django.db.models.fields.CharField', [], {'max_length': '15', 'null': 'True', 'blank': 'True'}),
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'ddd_comercial_phone': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),
-            'ddd_home_phone': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),
-            'ddd_mobile_phone': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'district': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True'}),
-            'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '75', 'db_index': 'True'}),
-            'facebook_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'field_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "u'field_permissions_set'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['auth.Group']"}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'gender': ('django.db.models.fields.CharField', [], {'max_length': '2', 'null': 'True', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            'home_phone': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_billet': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'main_image': ('django.db.models.fields.files.FileField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'mobile_phone': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'newsletter': ('django.db.models.fields.CharField', [], {'default': "u'f'", 'max_length': '2'}),
-            'number': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'prayer_by_day': ('django.db.models.fields.PositiveIntegerField', [], {'default': '2'}),
-            'previous_type': ('django.db.models.fields.CharField', [], {'default': "u'N'", 'max_length': '3', 'db_index': 'True'}),
-            'previous_type_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'db_index': 'True'}),
-            'rg': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'state': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['localidades.State']", 'null': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'db_index': 'True', 'max_length': '2', 'blank': 'True'}),
-            'street': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True'}),
-            'topic': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'twitter_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'type': ('django.db.models.fields.CharField', [], {'default': "u'N'", 'max_length': '3', 'db_index': 'True'}),
-            'type_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'db_index': 'True'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'zipcode': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True'})
+        u'%s.%s' % (User._meta.app_label, User._meta.module_name): {
+            'Meta': {'object_name': User.__name__},
         },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
@@ -108,7 +66,7 @@ class Migration(SchemaMigration):
             'site_iid': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True', 'max_length': '4', 'null': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '150'}),
             u'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.CustomUser']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['%s.%s']" % (User._meta.app_label, User._meta.object_name)})
         },
         u'containers.container': {
             'Meta': {'ordering': "['-date_available']", 'unique_together': "(('site', 'channel', 'slug'),)", 'object_name': 'Container'},
@@ -141,7 +99,7 @@ class Migration(SchemaMigration):
             'source': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'tags': ('django.db.models.fields.CharField', [], {'max_length': '4000', 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '140', 'db_index': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.CustomUser']"})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['%s.%s']" % (User._meta.app_label, User._meta.object_name)})
         },
         u'containers.containerimage': {
             'Meta': {'ordering': "('order',)", 'object_name': 'ContainerImage'},
@@ -193,7 +151,7 @@ class Migration(SchemaMigration):
             'source': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'tags': ('django.db.models.fields.CharField', [], {'max_length': '4000', 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '140', 'db_index': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.CustomUser']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['%s.%s']" % (User._meta.app_label, User._meta.object_name)}),
             'valign': ('django.db.models.fields.CharField', [], {'default': 'False', 'max_length': '6', 'null': 'True', 'blank': 'True'})
         },
         u'localidades.city': {
@@ -231,7 +189,7 @@ class Migration(SchemaMigration):
             'promo': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['promos.Promo']"}),
             'publish_file': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'published': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['accounts.CustomUser']", 'null': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['%s.%s']" % (User._meta.app_label, User._meta.object_name), 'null': 'True', 'blank': 'True'}),
             'user_anony_data': ('opps.db.models.fields.jsonf.JSONField', [], {'blank': 'True'})
         },
         u'promos.promo': {
