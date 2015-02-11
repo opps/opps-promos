@@ -236,7 +236,7 @@ class PromoDetail(DetailView):
             instance = form.save(commit=False)
 
             if request.user.is_authenticated():
-                instance.user = user
+                instance.user = request.user
             else:
                 user_anony_data = user_formset.cleaned_data[0]
                 user_anony_data.update({
