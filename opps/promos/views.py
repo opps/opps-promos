@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from importlib import import_module
 
 from django.conf import settings
 from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.views import redirect_to_login
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.sites.models import get_current_site, Site
 from django.db.models import Q
+from django.forms.formsets import formset_factory
 
 from opps.channels.models import Channel
 
@@ -163,9 +166,19 @@ class PromoDetail(DetailView):
 
         raise Http404(u"Promo object does not exist")
 
-    def get(self, request, *args, **kwargs):
+    def userformset_factory(self, cls):
+        return formset_factory(cls, max_num=1, extra=1, can_delete=False)
+
+    def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
 
+        if request.user.is_authenticated() or not self.object.login_required:
+            return super(PromoDetail, self).dispatch(
+                request, *args, **kwargs)
+
+        return redirect_to_login(next=request.path)
+
+    def get(self, request, *args, **kwargs):
         context = super(PromoDetail, self).get_context_data(**kwargs)
 
         context['answers'] = self.object.answers
@@ -174,14 +187,22 @@ class PromoDetail(DetailView):
 
         context['answered'] = self.object.has_answered(request.user)
 
+        AnswerForm = self.object.get_answer_form()
+        form = AnswerForm()
+
+        if not request.user.is_authenticated():
+            AnonyUserForm = self.object.get_anony_user_form()
+            AnonyUserFormSet = self.userformset_factory(AnonyUserForm)
+            context['user_formset'] = AnonyUserFormSet()
+
+        context['form'] = form
+
         if self.object.channel:
             context['channel'] = self.object.channel
 
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-
-        self.object = self.get_object()
         context = self.get_context_data(**kwargs)
         context['answers'] = self.object.answers
         context['request'] = request
@@ -194,45 +215,45 @@ class PromoDetail(DetailView):
             return self.render_to_response(context)
 
         # check if already answered
-        if self.object.has_answered(request.user):
-            context['error'] = _(u" You already answered this promo")
+        if self.object.login_required and \
+                self.object.has_answered(request.user):
+            context['error'] = _(u"You already answered this promo")
             return self.render_to_response(context)
 
-        answer = request.POST.get('answer')
-        answer_url = request.POST.get('answer_url')
+        AnswerForm = self.object.get_answer_form()
 
-        try:
-            answer_file = request.FILES['answer_file']
-        except:
-            answer_file = None
+        form = AnswerForm(request.POST, request.FILES)
+        is_valid = [form.is_valid()]
 
-        if not request.POST.get('agree'):
-            context['error'] = _(u" You have to agree with the rules")
-            return self.render_to_response(context)
-        elif any((answer, answer_url, answer_file)):
-            instance = Answer(
-                user=request.user,
-                promo=self.object,
-                answer=answer
-            )
-        elif self.object.form_type == 'none':
-            instance = Answer(
-                user=request.user,
-                promo=self.object
-            )
+        if not request.user.is_authenticated():
+            AnonyUserForm = self.object.get_anony_user_form()
+            AnonyUserFormSet = self.userformset_factory(AnonyUserForm)
+            user_formset = AnonyUserFormSet(request.POST, request.FILES)
+            is_valid.append(user_formset.is_valid())
+            context['user_formset'] = user_formset
+
+        if all(is_valid):
+            instance = form.save(commit=False)
+
+            if request.user.is_authenticated():
+                instance.user = user
+            else:
+                user_anony_data = user_formset.cleaned_data[0]
+                user_anony_data.update({
+                    '__form__module__': AnonyUserForm.__module__,
+                    '__form__name__': AnonyUserForm.__name__})
+
+                instance.user_anony_data = user_anony_data
+
+            instance.promo = self.object
+            instance.save()
+            context['success'] = instance
         else:
-            context['error'] = _(u" You have to fill the form")
+            context['form'] = form
+            context['error'] = form.non_field_errors()
             return self.render_to_response(context)
 
-        if answer_url:
-            instance.answer_url = answer_url
-
-        if answer_file:
-            instance.answer_file.save(answer_file._name, answer_file, True)
-
-        instance.save()
-        context['success'] = instance
-
+        context['form'] = form
         # send confirmation email
         if self.object.send_confirmation_email:
             subject = _(u"You are now registered for %s.") % self.object.title

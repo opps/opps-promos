@@ -2,6 +2,7 @@
 
 import os
 import uuid
+from importlib import import_module
 
 from django.db import models
 from django.db.models import Q
@@ -9,14 +10,18 @@ from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.forms.models import modelform_factory
 
 from opps.core.models import PublishableManager
 from opps.images.models import Image
 from opps.images.generate import image_url
-
+from opps.db.models.fields.jsonf import JSONField
 from opps.containers.models import Container
 
 app_namespace = getattr(settings, 'OPPS_PROMOS_URL_NAMESPACE', 'promos')
+
+ANONY_USER_FORM = getattr(
+    settings, 'OPPS_PROMOS_ANONY_USER_FORM', 'opps.promos.forms.AnonyUserForm')
 
 
 class PromoManager(PublishableManager):
@@ -63,6 +68,8 @@ class Promo(Container):
         related_name='promo_container',
         through='PromoContainer'
     )
+
+    login_required = models.BooleanField(_(u'Login required'), default=True)
 
     banner = models.ForeignKey(Image,
                                verbose_name=_(u'Promo Banner'), blank=True,
@@ -118,6 +125,25 @@ class Promo(Container):
             return self.form_type.split('|')
         except:
             return [self.form_type]
+
+    def get_anony_user_form(self):
+        mod, cls_name = ANONY_USER_FORM.rsplit('.', 1)
+        return getattr(import_module(mod), cls_name)
+
+
+    def get_answer_form(self):
+        from .forms import BaseAnswerForm
+
+        fields = []
+
+        if self.has_textfield:
+            fields.append('answer')
+        if self.has_urlfield:
+            fields.append('answer_url')
+        if self.has_upload:
+            fields.append('answer_file')
+
+        return modelform_factory(Answer, form=BaseAnswerForm, fields=fields)
 
     @property
     def has_upload(self):
@@ -215,8 +241,10 @@ def get_file_path(instance, filename):
 
 class Answer(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             verbose_name=_(u'User'))
+                             verbose_name=_(u'User'),
+                             null=True, blank=True)
     promo = models.ForeignKey(Promo, verbose_name=_(u'Promo'))
+    user_anony_data = JSONField(_(u"Anonymous user data"), blank=True)
     answer = models.TextField(_(u"Answer"), blank=True, null=True)
     answer_url = models.URLField(_(u"Answer URL"), blank=True, null=True)
     answer_file = models.FileField(upload_to=get_file_path,
@@ -263,3 +291,22 @@ class Answer(models.Model):
     @property
     def show_file(self):
         return self.answer_file and self.publish_file
+
+    def user_anony(self):
+        data = self.user_anony_data or {}
+
+        if not '__form__module__' in data or not '__form__name__' in data:
+            return data.items()
+
+        try:
+            # Try to import used form
+            mod = import_module(data['__form__module__'])
+            form_cls = getattr(mod, data['__form__name__'])
+            form = form_cls(data)
+        except ImportError, AttributeError:
+            return data.items()
+
+        if form.is_valid():
+            return [(f.label, f.value) for f in form.visible_fields()]
+
+        return data.items()

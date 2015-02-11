@@ -11,207 +11,237 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opps\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-06 12:34-0300\n"
-"PO-Revision-Date: 2013-04-26 18:13+0000\n"
-"Last-Translator: josene <jsene@yacows.com.br>\n"
+"POT-Creation-Date: 2015-02-11 03:16-0200\n"
+"PO-Revision-Date: 2015-02-11 05:54-0300\n"
+"Last-Translator: Jean O. Rodrigues <jeanmaskpl@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <opps-developers@googlegroups.com>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: admin.py:41 models.py:185 models.py:204
+#: admin.py:38 models.py:213 models.py:232
 msgid "Promo Container"
 msgstr "Container de Promoção"
 
-#: admin.py:42 models.py:205
+#: admin.py:39 models.py:233
 msgid "Promo Containers"
 msgstr "Container de promoções"
 
-#: admin.py:58
+#: admin.py:55
 msgid "Identification"
 msgstr "Identificação"
 
-#: admin.py:61
+#: admin.py:58
 msgid "Content"
 msgstr "Conteúdo"
 
-#: admin.py:65 models.py:54
+#: admin.py:62 models.py:60
 msgid "Headline"
 msgstr "Cabeçalho"
 
-#: admin.py:69 models.py:55
+#: admin.py:66 models.py:61
 msgid "Description"
 msgstr "Descrição"
 
-#: admin.py:73 models.py:57
+#: admin.py:70 models.py:63
 msgid "Rules"
 msgstr "Regras"
 
-#: admin.py:77
+#: admin.py:74
 msgid "Relationships"
 msgstr "Relacionamentos"
 
-#: admin.py:80
+#: admin.py:77
 msgid "Publication"
 msgstr "Publicação"
 
-#: admin.py:88
+#: admin.py:86
 msgid "Participation"
 msgstr "Participação"
 
-#: admin.py:92 models.py:58
+#: admin.py:90 models.py:64
 msgid "Result"
 msgstr "Resultado"
 
-#: admin.py:103
+#: admin.py:101
 msgid "No Image"
 msgstr "Sem Imagem"
 
-#: admin.py:104
+#: admin.py:102
 msgid "Thumbnail"
 msgstr "Miniatura"
 
-#: admin.py:120
+#: admin.py:118
 msgid "File"
-msgstr ""
+msgstr "Arquivo"
 
-#: admin.py:140
+#: admin.py:138
 msgid "Upload"
 msgstr "Upload"
 
-#: models.py:43
+#: forms.py:17
+msgid "I agree with terms."
+msgstr "Eu aceito os termos."
+
+#: forms.py:22
+#, fuzzy
+msgid "You have to agree with the rules"
+msgstr "Você tem que concordar com as regras"
+
+#: forms.py:32
+msgid "name"
+msgstr "nome"
+
+#: forms.py:34
+msgid "lastname"
+msgstr "sobrenome"
+
+#: forms.py:36
+msgid "birthday"
+msgstr "data de nascimento"
+
+#: models.py:49
 msgid "Registration only"
 msgstr "Apenas confirmar participação"
 
-#: models.py:45
+#: models.py:51
 msgid "Text only"
 msgstr "Apenas texto"
 
-#: models.py:46
+#: models.py:52
 msgid "Upload only"
 msgstr "Apenas upload"
 
-#: models.py:47
+#: models.py:53
 msgid "Url only"
 msgstr "Apenas URL"
 
-#: models.py:49
+#: models.py:55
 msgid "Text and Upload"
 msgstr "Texto e upload"
 
-#: models.py:50
+#: models.py:56
 msgid "Text and Url"
 msgstr "Texto e URL"
 
-#: models.py:51
+#: models.py:57
 msgid "Text, Url and Upload"
 msgstr "Texto, URL e Upload"
 
-#: models.py:68
+#: models.py:73
+msgid "Login required"
+msgstr "login obrigatório"
+
+#: models.py:76
 msgid "Promo Banner"
 msgstr "Banner da promoção"
 
-#: models.py:71
+#: models.py:79
 msgid "300 x 498 banner image"
 msgstr "Imagem de banner 300 x 498"
 
-#: models.py:72
+#: models.py:80
 msgid "End date"
 msgstr "Data de finalização"
 
-#: models.py:73
+#: models.py:81
 msgid "Order"
 msgstr "Ordem"
 
-#: models.py:76
+#: models.py:84
 msgid "Form type"
 msgstr "Tipo de form"
 
-#: models.py:82
+#: models.py:90
 msgid "Display answers?"
 msgstr "Mostrar respostas?"
 
-#: models.py:83
+#: models.py:91
 msgid "Display winners?"
 msgstr "Mostrar vencedores?"
 
-#: models.py:86
+#: models.py:94
 msgid "Send confirmation email?"
 msgstr "Enviar e-mail de confirmação?"
 
-#: models.py:90
+#: models.py:98
 msgid "Confirmation email (Text)"
 msgstr "E-mail de confirmação (texto puro)"
 
-#: models.py:94
+#: models.py:102
 msgid "Confirmation email (HTML)"
 msgstr "E-mail de confirmação (HTML)"
 
-#: models.py:98
+#: models.py:106
 msgid "Email"
 msgstr "E-mail"
 
-#: models.py:105
+#: models.py:113
 msgid "Countdown enabled"
 msgstr "Contador ativado"
 
-#: models.py:165 models.py:179 models.py:193 models.py:219
+#: models.py:193 models.py:207 models.py:221 models.py:248
 msgid "Promo"
 msgstr "Promoção"
 
-#: models.py:166
+#: models.py:194
 msgid "Promos"
 msgstr "Promoções"
 
-#: models.py:218
+#: models.py:246
 msgid "User"
 msgstr "Usuário"
 
-#: models.py:220 models.py:237
+#: models.py:249
+msgid "Anonymous user data"
+msgstr "dados de usuário anônimo"
+
+#: models.py:250 models.py:267
 msgid "Answer"
 msgstr "Resposta"
 
-#: models.py:221
+#: models.py:251
 msgid "Answer URL"
 msgstr "URL da resposta"
 
-#: models.py:223
+#: models.py:253
 msgid "Answer File"
 msgstr "Arquivo da resposta"
 
-#: models.py:226
+#: models.py:256
 msgid "Publish file?"
 msgstr "Publicar Arquivo?"
 
-#: models.py:228
+#: models.py:258
 msgid "Show image thumbnail if image, or link if another type of file"
 msgstr ""
 "Mostra miniatura da imagem se arquivo for uma imagem ou um link caso seja de "
 "outro tipo"
 
-#: models.py:230
+#: models.py:260
 msgid "Published"
 msgstr "Publicado"
 
-#: models.py:231
+#: models.py:261
 msgid "Date insert"
 msgstr "Data de inserção"
 
-#: models.py:232
+#: models.py:262
 msgid "Date update"
 msgstr "Data de atualização"
 
-#: models.py:233
+#: models.py:263
 msgid "Is winner?"
 msgstr "É ganhador?"
 
-#: models.py:238
+#: models.py:268
 msgid "Answers"
 msgstr "Respostas"
 
-#: models.py:261
+#: models.py:291
 msgid "No file"
 msgstr "Sem arquivo"
 
@@ -220,26 +250,22 @@ msgstr "Sem arquivo"
 msgid "Thank you! You are now inscribed to {obj.title}"
 msgstr "Obrigado! Você agora está inscrito em {obj.title}"
 
-#: views.py:179
+#: views.py:209
 msgid "Promo not opened"
 msgstr "Promoção não aberta"
 
-#: views.py:184
-msgid " You already answered this promo"
+#: views.py:215
+#, fuzzy
+msgid "You already answered this promo"
 msgstr "Você já respondeu a esta promoção"
 
-#: views.py:196
-msgid " You have to agree with the rules"
-msgstr "Você tem que concordar com as regras"
-
-#: views.py:210
-msgid " You have to fill the form"
-msgstr "Você tem que preencher o formulário"
-
-#: views.py:224
+#: views.py:250
 #, python-format
 msgid "You are now registered for %s."
 msgstr "Você está agora registrado por %s."
+
+#~ msgid " You have to fill the form"
+#~ msgstr "Você tem que preencher o formulário"
 
 #~ msgid "Mirror site"
 #~ msgstr "Site espelho"
