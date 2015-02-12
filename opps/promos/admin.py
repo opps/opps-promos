@@ -134,6 +134,10 @@ class AnswerAdmin(AdminViewPermission, ImportExportModelAdmin):
     raw_id_fields = ['promo', 'user']
     readonly_fields = ('user_anony_data',)
 
+    def queryset(self, request):
+        qs = super(AnswerAdmin, self).queryset(request)
+        return qs.select_related('promo').prefetch_related('user')
+
     def image_thumb(self, obj):
         return obj.get_file_display()
     image_thumb.short_description = _(u'Upload')
