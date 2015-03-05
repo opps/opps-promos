@@ -169,16 +169,9 @@ class PromoDetail(DetailView):
     def userformset_factory(self, cls):
         return formset_factory(cls, max_num=1, extra=1, can_delete=False)
 
-    def dispatch(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         self.object = self.get_object()
 
-        if request.user.is_authenticated() or not self.object.login_required:
-            return super(PromoDetail, self).dispatch(
-                request, *args, **kwargs)
-
-        return redirect_to_login(next=request.path)
-
-    def get(self, request, *args, **kwargs):
         context = super(PromoDetail, self).get_context_data(**kwargs)
 
         context['answers'] = self.object.answers
@@ -190,7 +183,8 @@ class PromoDetail(DetailView):
         AnswerForm = self.object.get_answer_form()
         form = AnswerForm()
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated() and \
+                not self.object.login_required:
             AnonyUserForm = self.object.get_anony_user_form()
             AnonyUserFormSet = self.userformset_factory(AnonyUserForm)
             context['user_formset'] = AnonyUserFormSet()
@@ -203,6 +197,8 @@ class PromoDetail(DetailView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
         context = self.get_context_data(**kwargs)
         context['answers'] = self.object.answers
         context['request'] = request
@@ -225,7 +221,8 @@ class PromoDetail(DetailView):
         form = AnswerForm(request.POST, request.FILES)
         is_valid = [form.is_valid()]
 
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated() and \
+                not self.object.login_required:
             AnonyUserForm = self.object.get_anony_user_form()
             AnonyUserFormSet = self.userformset_factory(AnonyUserForm)
             user_formset = AnonyUserFormSet(request.POST, request.FILES)
