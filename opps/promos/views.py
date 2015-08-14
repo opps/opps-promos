@@ -46,7 +46,6 @@ class PromoList(ListView):
         ).distinct()
 
     def get_context_data(self, *args, **kwargs):
-        import ipdb; ipdb.set_trace()
         context = super(PromoList, self).get_context_data(*args, **kwargs)
         context['channel'] = self.channel
         return context
