@@ -37,10 +37,19 @@ class PromoList(ListView):
     def queryset(self):
         site = get_current_site(self.request)
         promos = Promo.objects.all_opened()
+        long_slug = self.request.path.strip('/')
+        self.channel = get_object_or_404(
+            Channel, site=site.id, long_slug=long_slug)
         return promos.filter(
             Q(mirror_site__domain=site.domain) |
-            Q(site__domain=site.domain)
+            Q(site=site.id)
         ).distinct()
+
+    def get_context_data(self, *args, **kwargs):
+        import ipdb; ipdb.set_trace()
+        context = super(PromoList, self).get_context_data(*args, **kwargs)
+        context['channel'] = self.channel
+        return context
 
 
 class ChannelPromoList(ListView):
